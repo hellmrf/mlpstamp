@@ -1,4 +1,5 @@
 # Credits
+_(for the original [`audreyfeldroy/cookiecutter`](https://github.com/audreyfeldroy/cookiecutter) project)_
 
 ## Development Leads
 

@@ -27,7 +27,7 @@ def test_is_zip_file(zipfile) -> None:
     params=[
         'gitolite@server:team/repo',
         'git@github.com:audreyfeldroy/mlpstamps.git',
-        'https://github.com/mlpstamps/mlpstamps.git',
+        'https://github.com/hellmrf/mlpstamps.git',
         'git+https://private.com/gitrepo',
         'hg+https://private.com/mercurialrepo',
         'https://bitbucket.org/pokoli/mlpstamps.hg',

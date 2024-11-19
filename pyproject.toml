@@ -89,9 +89,21 @@ build-backend = "hatchling.build"
 packages = ["src/mlpstamps"]
 
 [tool.hatch.build.targets.sdist]
-include = ["src/mlpstamps", "tests", "*.md", "LICENSE"]
-exclude = ["Makefile", "setup.py", "__pycache__"]
-
+include = [
+    "src/mlpstamps/**/*",
+    "tests",
+    "*.md",
+    "LICENSE",
+]
+exclude = [
+    "Makefile",
+    "docs/*",
+    "logo/*",
+    "__pycache__",
+    "*.py[co]",
+    "setup.py",
+    "MANIFEST.in"
+]
 
 [tool.pytest.ini_options]
 testpaths = "tests"
