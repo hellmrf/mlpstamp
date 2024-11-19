@@ -69,10 +69,10 @@ test = [
 dev = ["coverage>=7.6.7", "doc8>=1.1.2", "mypy>=1.13.0", "ruff>=0.7.4"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["mlpstamps"]
+packages = ["src/mlpstamps"]
 
 [tool.hatch.build.targets.sdist]
-include = ["mlpstamps", "tests", "*.md", "LICENSE"]
+include = ["src/mlpstamps", "tests", "*.md", "LICENSE"]
 exclude = ["Makefile", "setup.py", "__pycache__"]
 
 [tool.pytest.ini_options]
@@ -167,7 +167,7 @@ exclude = ["tests/**/hooks/*"]
     "S106", # Possible hardcoded password assigned to argument: "password"
     "S108", # Probable insecure usage of temporary file or directory: "/tmp"
 ]
-"mlpstamps/*" = [
+"src/mlpstamps/*" = [
     "S603", # `subprocess` call: check for execution of untrusted input"
 ]
 "docs/conf.py" = ["A001", "D100"]
@@ -181,7 +181,7 @@ exclude = ["tests/hooks-abort-render/hooks/*"]
 [tool.mypy]
 strict = true
 show_error_codes = true
-files = ["mlpstamps", "tests"]
+files = ["src/mlpstamps", "tests"]
 exclude = "(?x)(/hooks/ | tests/test-output-folder/)"
 no_implicit_reexport = true
 
@@ -198,4 +198,4 @@ disable_error_code = ["no-untyped-def"]
 exclude_also = ["if TYPE_CHECKING:"]
 
 [tool.coverage.run]
-omit = ["mlpstamps/__main__.py"]
+omit = ["src/mlpstamps/__main__.py"]
