@@ -15,7 +15,7 @@ You can contribute in many ways:
 
 ### Report Bugs
 
-Report bugs at [https://github.com/mlpstamps/mlpstamps/issues](https://github.com/mlpstamps/mlpstamps/issues).
+Report bugs at [https://github.com/hellmrf/mlpstamps/issues](https://github.com/hellmrf/mlpstamps/issues).
 
 If you are reporting a bug, please include:
 
@@ -56,7 +56,7 @@ This will compile the documentation, open it in your browser and start watching 
 
 ### Submit Feedback
 
-The best way to send feedback is to file an issue at [https://github.com/mlpstamps/mlpstamps/issues](https://github.com/mlpstamps/mlpstamps/issues).
+The best way to send feedback is to file an issue at [https://github.com/hellmrf/mlpstamps/issues](https://github.com/hellmrf/mlpstamps/issues).
 
 If you are proposing a feature:
 
@@ -308,7 +308,7 @@ New features require a +1 from 2 other core committers (besides yourself).
 
 ### Process: Roadmap
 
-The roadmap located [here](https://github.com/mlpstamps/mlpstamps/milestones?direction=desc&sort=due_date&state=open)
+The roadmap located [here](https://github.com/hellmrf/mlpstamps/milestones?direction=desc&sort=due_date&state=open)
 
 Due dates are flexible. Core committers can change them as needed. Note that GitHub sort on them is buggy.
 

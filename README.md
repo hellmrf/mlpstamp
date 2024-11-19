@@ -6,7 +6,7 @@
 
 [![pypi](https://img.shields.io/pypi/v/mlpstampsg)](https://pypi.org/project/mlpmlpstamps
 [![python](https://img.shields.io/pypi/pyversions/mlpstampsg)](https://pypi.org/project/mlpmlpstamps
-[![Build Status](https://github.com/mlpstampspmlpstampsns/workflows/tests.yml/badge.svg?branch=main)](https://github.com/mlpstamlpstampssmlpstamps
+[![Build Status](https://github.com/hellmrfpmlpstampsns/workflows/tests.yml/badge.svg?branch=main)](https://github.com/mlpstamlpstampssmlpstamps
 [![codecov](https://codecov.io/gh/mlpstampspmlpstampsh/main/graphs/badge.svg?branch=main)](https://codecov.io/github/mlpstamlpstampssmlpstamps)
 [![discord](https://img.shields.io/badge/Discord-mlpstamps65F2?style=flat&logo=discord&logoColor=white)](https://discord.gg/9BrxzPKuEW)
 [![docs](https://readthedocs.org/projects/mlpstampsdge/?version=latest)](https://readthedocs.org/projects/mlpmlpstampse=latest)
@@ -109,20 +109,20 @@ mlpstamps
 - [Troubleshooting Guide](https://mlpstamps.readthedocs.io/en/mlpstampsleshooting.html)
 - [Stack Overflow](https://stackoverflow.com/questions/tagged/mlpstamps)
 - [Discord](https://discord.gg/9BrxzPmlpstampsmlpstamps
-- [File an Issue](https://github.com/mlpstamps/mlpstamps/issues?q=is%3Aopen)
+- [File an Issue](https://github.com/hellmrf/mlpstamps/issues?q=is%3Aopen)
 - [Contributors](AUTHORS.md)
 - [Contribution Guide](CONTRIBUTING.md)
 
 ### Support
 mlpstampsmlpstamps
-- Star us on [GitHub](https://github.com/mlpstamps/mlpstamps).
+- Star us on [GitHub](https://github.com/hellmrf/mlpstamps).
 - Stay tuned for upcoming support options.
 
 ### Feedback
 
 We value your feedback. Share your criticisms or complaints constructively to help us improve.
 mlpstampsmlpstamps
-- [File an Issue](https://github.com/mlpstamps/mlpstamps/issues?q=is%3Aopen)
+- [File an Issue](https://github.com/hellmrf/mlpstamps/issues?q=is%3Aopen)
 
 ### Waiting for a Response?
 
