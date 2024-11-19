@@ -1,4 +1,4 @@
-"""Tests for `cookiecutter.utils` module."""
+"""Tests for `mlpstamps.utils` module."""
 
 import stat
 import sys
@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from cookiecutter import utils
+from mlpstamps import utils
 
 
 def make_readonly(path) -> None:

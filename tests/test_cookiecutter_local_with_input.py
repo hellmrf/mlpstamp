@@ -1,10 +1,10 @@
-"""Test main cookiecutter invocation with user input enabled (mocked)."""
+"""Test main mlpstamps invocation with user input enabled (mocked)."""
 
 import os
 
 import pytest
 
-from cookiecutter import main, utils
+from mlpstamps import main, utils
 
 
 @pytest.fixture(scope='function')
@@ -18,14 +18,14 @@ def remove_additional_dirs():
 
 
 @pytest.mark.usefixtures('clean_system', 'remove_additional_dirs')
-def test_cookiecutter_local_with_input(monkeypatch) -> None:
-    """Verify simple cookiecutter run results, without extra_context provided."""
+def test_mlpstamps_local_with_input(monkeypatch) -> None:
+    """Verify simple mlpstamps run results, without extra_context provided."""
     monkeypatch.setattr(
-        'cookiecutter.prompt.read_user_variable',
+        'mlpstamps.prompt.read_user_variable',
         lambda _var, default, _prompts, _prefix: default,
     )
-    main.cookiecutter('tests/fake-repo-pre/', no_input=False)
-    assert os.path.isdir('tests/fake-repo-pre/{{cookiecutter.repo_name}}')
+    main.mlpstamps('tests/fake-repo-pre/', no_input=False)
+    assert os.path.isdir('tests/fake-repo-pre/{{mlpstamps.repo_name}}')
     assert not os.path.isdir('tests/fake-repo-pre/fake-project')
     assert os.path.isdir('fake-project')
     assert os.path.isfile('fake-project/README.rst')
@@ -33,13 +33,13 @@ def test_cookiecutter_local_with_input(monkeypatch) -> None:
 
 
 @pytest.mark.usefixtures('clean_system', 'remove_additional_dirs')
-def test_cookiecutter_input_extra_context(monkeypatch) -> None:
-    """Verify simple cookiecutter run results, with extra_context provided."""
+def test_mlpstamps_input_extra_context(monkeypatch) -> None:
+    """Verify simple mlpstamps run results, with extra_context provided."""
     monkeypatch.setattr(
-        'cookiecutter.prompt.read_user_variable',
+        'mlpstamps.prompt.read_user_variable',
         lambda _var, default, _prompts, _prefix: default,
     )
-    main.cookiecutter(
+    main.mlpstamps(
         'tests/fake-repo-pre',
         no_input=False,
         extra_context={'repo_name': 'fake-project-input-extra'},

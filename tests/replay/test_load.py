@@ -5,7 +5,7 @@ import os
 
 import pytest
 
-from cookiecutter import replay
+from mlpstamps import replay
 
 
 @pytest.fixture
@@ -23,7 +23,7 @@ def replay_file(replay_test_dir, template_name):
 
 def test_value_error_if_key_missing_in_context(replay_test_dir) -> None:
     """Test that replay.load raises if the loaded context does not contain \
-    'cookiecutter'."""
+    'mlpstamps'."""
     with pytest.raises(ValueError):
         replay.load(replay_test_dir, 'invalid_replay')
 

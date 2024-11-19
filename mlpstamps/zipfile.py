@@ -9,9 +9,9 @@ from zipfile import BadZipFile, ZipFile
 
 import requests
 
-from cookiecutter.exceptions import InvalidZipRepository
-from cookiecutter.prompt import prompt_and_delete, read_repo_password
-from cookiecutter.utils import make_sure_path_exists
+from mlpstamps.exceptions import InvalidZipRepository
+from mlpstamps.prompt import prompt_and_delete, read_repo_password
+from mlpstamps.utils import make_sure_path_exists
 
 
 def unzip(
@@ -23,12 +23,12 @@ def unzip(
 ) -> str:
     """Download and unpack a zipfile at a given URI.
 
-    This will download the zipfile to the cookiecutter repository,
+    This will download the zipfile to the mlpstamps repository,
     and unpack into a temporary directory.
 
     :param zip_uri: The URI for the zipfile.
     :param is_url: Is the zip URI a URL or a file?
-    :param clone_to_dir: The cookiecutter repository directory
+    :param clone_to_dir: The mlpstamps repository directory
         to put the archive into.
     :param no_input: Do not prompt for user input and eventually force a refresh of
         cached resources.

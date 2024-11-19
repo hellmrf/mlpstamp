@@ -5,7 +5,7 @@ import os
 
 import pytest
 
-from cookiecutter import replay
+from mlpstamps import replay
 
 
 @pytest.fixture
@@ -34,31 +34,31 @@ def remove_replay_dump(request, replay_file) -> None:
 
 def test_value_error_if_key_missing_in_context(replay_test_dir, template_name) -> None:
     """Test that replay.dump raises if the context does not contain a key \
-    named 'cookiecutter'."""
+    named 'mlpstamps'."""
     with pytest.raises(ValueError):
         replay.dump(replay_test_dir, template_name, {'foo': 'bar'})
 
 
 @pytest.fixture
 def mock_ensure_failure(mocker):
-    """Replace cookiecutter.replay.make_sure_path_exists function.
+    """Replace mlpstamps.replay.make_sure_path_exists function.
 
     Used to mock internal function and limit test scope.
     Always return expected value: False
     """
     return mocker.patch(
-        'cookiecutter.replay.make_sure_path_exists', side_effect=OSError
+        'mlpstamps.replay.make_sure_path_exists', side_effect=OSError
     )
 
 
 @pytest.fixture
 def mock_ensure_success(mocker):
-    """Replace cookiecutter.replay.make_sure_path_exists function.
+    """Replace mlpstamps.replay.make_sure_path_exists function.
 
     Used to mock internal function and limit test scope.
     Always return expected value: True
     """
-    return mocker.patch('cookiecutter.replay.make_sure_path_exists', return_value=True)
+    return mocker.patch('mlpstamps.replay.make_sure_path_exists', return_value=True)
 
 
 def test_ioerror_if_replay_dir_creation_fails(
@@ -66,7 +66,7 @@ def test_ioerror_if_replay_dir_creation_fails(
 ) -> None:
     """Test that replay.dump raises when the replay_dir cannot be created."""
     with pytest.raises(OSError):
-        replay.dump(replay_test_dir, 'foo', {'cookiecutter': {'hello': 'world'}})
+        replay.dump(replay_test_dir, 'foo', {'mlpstamps': {'hello': 'world'}})
 
     mock_ensure_failure.assert_called_once_with(replay_test_dir)
 

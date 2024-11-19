@@ -6,7 +6,7 @@ from typing import Any
 
 from jinja2 import Environment, StrictUndefined
 
-from cookiecutter.exceptions import UnknownExtension
+from mlpstamps.exceptions import UnknownExtension
 
 
 class ExtensionLoaderMixin:
@@ -22,17 +22,17 @@ class ExtensionLoaderMixin:
         Does the following:
 
         1. Establishes default_extensions (currently just a Time feature)
-        2. Reads extensions set in the cookiecutter.json _extensions key.
+        2. Reads extensions set in the mlpstamps.json _extensions key.
         3. Attempts to load the extensions. Provides useful error if fails.
         """
         context = context or {}
 
         default_extensions = [
-            'cookiecutter.extensions.JsonifyExtension',
-            'cookiecutter.extensions.RandomStringExtension',
-            'cookiecutter.extensions.SlugifyExtension',
-            'cookiecutter.extensions.TimeExtension',
-            'cookiecutter.extensions.UUIDExtension',
+            'mlpstamps.extensions.JsonifyExtension',
+            'mlpstamps.extensions.RandomStringExtension',
+            'mlpstamps.extensions.SlugifyExtension',
+            'mlpstamps.extensions.TimeExtension',
+            'mlpstamps.extensions.UUIDExtension',
         ]
         extensions = default_extensions + self._read_extensions(context)
 
@@ -49,7 +49,7 @@ class ExtensionLoaderMixin:
         list instead.
         """
         try:
-            extensions = context['cookiecutter']['_extensions']
+            extensions = context['mlpstamps']['_extensions']
         except KeyError:
             return []
         else:
@@ -66,6 +66,6 @@ class StrictEnvironment(ExtensionLoaderMixin, Environment):
     def __init__(self, **kwargs: Any) -> None:
         """Set the standard Cookiecutter StrictEnvironment.
 
-        Also loading extensions defined in cookiecutter.json's _extensions key.
+        Also loading extensions defined in mlpstamps.json's _extensions key.
         """
         super().__init__(undefined=StrictUndefined, **kwargs)

@@ -6,9 +6,9 @@ import os
 import re
 from typing import TYPE_CHECKING
 
-from cookiecutter.exceptions import RepositoryNotFound
-from cookiecutter.vcs import clone
-from cookiecutter.zipfile import unzip
+from mlpstamps.exceptions import RepositoryNotFound
+from mlpstamps.vcs import clone
+from mlpstamps.zipfile import unzip
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -53,8 +53,8 @@ def expand_abbreviations(template: str, abbreviations: dict[str, str]) -> str:
     return template
 
 
-def repository_has_cookiecutter_json(repo_directory: str) -> bool:
-    """Determine if `repo_directory` contains a `cookiecutter.json` file.
+def repository_has_mlpstamps_json(repo_directory: str) -> bool:
+    """Determine if `repo_directory` contains a `mlpstamps.json` file.
 
     :param repo_directory: The candidate repository directory.
     :return: True if the `repo_directory` is valid, else False.
@@ -62,7 +62,7 @@ def repository_has_cookiecutter_json(repo_directory: str) -> bool:
     repo_directory_exists = os.path.isdir(repo_directory)
 
     repo_config_exists = os.path.isfile(
-        os.path.join(repo_directory, 'cookiecutter.json')
+        os.path.join(repo_directory, 'mlpstamps.json')
     )
     return repo_directory_exists and repo_config_exists
 
@@ -92,8 +92,8 @@ def determine_repo_dir(
     :param no_input: Do not prompt for user input and eventually force a refresh of
         cached resources.
     :param password: The password to use when extracting the repository.
-    :param directory: Directory within repo where cookiecutter.json lives.
-    :return: A tuple containing the cookiecutter template directory, and
+    :param directory: Directory within repo where mlpstamps.json lives.
+    :return: A tuple containing the mlpstamps template directory, and
         a boolean describing whether that directory should be cleaned up
         after the template has been instantiated.
     :raises: `RepositoryNotFound` if a repository directory could not be found.
@@ -129,7 +129,7 @@ def determine_repo_dir(
         ]
 
     for repo_candidate in repository_candidates:
-        if repository_has_cookiecutter_json(repo_candidate):
+        if repository_has_mlpstamps_json(repo_candidate):
             return repo_candidate, cleanup
 
     msg = (

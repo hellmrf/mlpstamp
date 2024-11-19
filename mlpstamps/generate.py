@@ -17,16 +17,16 @@ from jinja2 import Environment, FileSystemLoader
 from jinja2.exceptions import TemplateSyntaxError, UndefinedError
 from rich.prompt import InvalidResponse
 
-from cookiecutter.exceptions import (
+from mlpstamps.exceptions import (
     ContextDecodingException,
     EmptyDirNameException,
     OutputDirExistsException,
     UndefinedVariableInTemplate,
 )
-from cookiecutter.find import find_template
-from cookiecutter.hooks import run_hook_from_repo_dir
-from cookiecutter.prompt import YesNoPrompt
-from cookiecutter.utils import (
+from mlpstamps.find import find_template
+from mlpstamps.hooks import run_hook_from_repo_dir
+from mlpstamps.prompt import YesNoPrompt
+from mlpstamps.utils import (
     create_env_with_context,
     make_sure_path_exists,
     rmtree,
@@ -44,10 +44,10 @@ def is_copy_only_path(path: str, context: dict[str, Any]) -> bool:
 
     :param path: A file-system path referring to a file or dir that
         should be rendered or just copied.
-    :param context: cookiecutter context.
+    :param context: mlpstamps context.
     """
     try:
-        for dont_render in context['cookiecutter']['_copy_without_render']:
+        for dont_render in context['mlpstamps']['_copy_without_render']:
             if fnmatch.fnmatch(path, dont_render):
                 return True
     except KeyError:
@@ -92,7 +92,7 @@ def apply_overwrites_to_context(
                 if overwrite in context_value:
                     # This overwrite is actually valid for the given context
                     # Let's set it as default (by definition first item in list)
-                    # see ``cookiecutter.prompt.prompt_choice_for_config``
+                    # see ``mlpstamps.prompt.prompt_choice_for_config``
                     context_value.remove(overwrite)
                     context_value.insert(0, overwrite)
                 else:
@@ -124,7 +124,7 @@ def apply_overwrites_to_context(
 
 
 def generate_context(
-    context_file: str = 'cookiecutter.json',
+    context_file: str = 'mlpstamps.json',
     default_context: dict[str, Any] | None = None,
     extra_context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
@@ -133,7 +133,7 @@ def generate_context(
     Loads the JSON file as a Python object, with key being the JSON filename.
 
     :param context_file: JSON file containing key/value pairs for populating
-        the cookiecutter's variables.
+        the mlpstamps's variables.
     :param default_context: Dictionary containing config to take into account.
     :param extra_context: Dictionary containing configuration overrides
     """
@@ -196,7 +196,7 @@ def generate_file(
     :param project_dir: Absolute path to the resulting generated project.
     :param infile: Input file to generate the file from. Relative to the root
         template dir.
-    :param context: Dict for populating the cookiecutter's variables.
+    :param context: Dict for populating the mlpstamps's variables.
     :param env: Jinja2 template execution environment.
     """
     logger.debug('Processing file %s', infile)
@@ -238,9 +238,9 @@ def generate_file(
         raise
     rendered_file = tmpl.render(**context)
 
-    if context['cookiecutter'].get('_new_lines', False):
+    if context['mlpstamps'].get('_new_lines', False):
         # Use `_new_lines` from context, if configured.
-        newline = context['cookiecutter']['_new_lines']
+        newline = context['mlpstamps']['_new_lines']
         logger.debug('Using configured newline character %s', repr(newline))
     else:
         # Detect original file newline to output the rendered file.
@@ -315,7 +315,7 @@ def _run_hook_from_repo_dir(
     """
     warnings.warn(
         "The '_run_hook_from_repo_dir' function is deprecated, "
-        "use 'cookiecutter.hooks.run_hook_from_repo_dir' instead",
+        "use 'mlpstamps.hooks.run_hook_from_repo_dir' instead",
         DeprecationWarning,
         2,
     )

@@ -1,1 +1,1 @@
-I eat {{ cookiecutter.binary_test }}
+I eat {{ mlpstamps.binary_test }}

@@ -1,5 +1,5 @@
 pip
-{% if cookiecutter.command_line_interface|lower == 'click' -%}
+{% if mlpstamps.command_line_interface|lower == 'click' -%}
 Click{% endif %}
-{% if cookiecutter.use_pytest == 'y' -%}
+{% if mlpstamps.use_pytest == 'y' -%}
 pytest{% endif %}

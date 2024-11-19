@@ -1,133 +1,133 @@
-cookiecutter package
+mlpstamps package
 ====================
 
 Submodules
 ----------
 
-cookiecutter.cli module
+mlpstamps.cli module
 -----------------------
 
-.. automodule:: cookiecutter.cli
+.. automodule:: mlpstamps.cli
    :members:
    :undoc-members:
    :show-inheritance:
 
-cookiecutter.config module
+mlpstamps.config module
 --------------------------
 
-.. automodule:: cookiecutter.config
+.. automodule:: mlpstamps.config
    :members:
    :undoc-members:
    :show-inheritance:
 
-cookiecutter.environment module
+mlpstamps.environment module
 -------------------------------
 
-.. automodule:: cookiecutter.environment
+.. automodule:: mlpstamps.environment
    :members:
    :undoc-members:
    :show-inheritance:
 
-cookiecutter.exceptions module
+mlpstamps.exceptions module
 ------------------------------
 
-.. automodule:: cookiecutter.exceptions
+.. automodule:: mlpstamps.exceptions
    :members:
    :undoc-members:
    :show-inheritance:
 
-cookiecutter.extensions module
+mlpstamps.extensions module
 ------------------------------
 
-.. automodule:: cookiecutter.extensions
+.. automodule:: mlpstamps.extensions
    :members:
    :undoc-members:
    :show-inheritance:
 
-cookiecutter.find module
+mlpstamps.find module
 ------------------------
 
-.. automodule:: cookiecutter.find
+.. automodule:: mlpstamps.find
    :members:
    :undoc-members:
    :show-inheritance:
 
-cookiecutter.generate module
+mlpstamps.generate module
 ----------------------------
 
-.. automodule:: cookiecutter.generate
+.. automodule:: mlpstamps.generate
    :members:
    :undoc-members:
    :show-inheritance:
 
-cookiecutter.hooks module
+mlpstamps.hooks module
 -------------------------
 
-.. automodule:: cookiecutter.hooks
+.. automodule:: mlpstamps.hooks
    :members:
    :undoc-members:
    :show-inheritance:
 
-cookiecutter.log module
+mlpstamps.log module
 -----------------------
 
-.. automodule:: cookiecutter.log
+.. automodule:: mlpstamps.log
    :members:
    :undoc-members:
    :show-inheritance:
 
-cookiecutter.main module
+mlpstamps.main module
 ------------------------
 
-.. automodule:: cookiecutter.main
+.. automodule:: mlpstamps.main
    :members:
    :undoc-members:
    :show-inheritance:
 
-cookiecutter.prompt module
+mlpstamps.prompt module
 --------------------------
 
-.. automodule:: cookiecutter.prompt
+.. automodule:: mlpstamps.prompt
    :members:
    :undoc-members:
    :show-inheritance:
 
-cookiecutter.replay module
+mlpstamps.replay module
 --------------------------
 
-.. automodule:: cookiecutter.replay
+.. automodule:: mlpstamps.replay
    :members:
    :undoc-members:
    :show-inheritance:
 
-cookiecutter.repository module
+mlpstamps.repository module
 ------------------------------
 
-.. automodule:: cookiecutter.repository
+.. automodule:: mlpstamps.repository
    :members:
    :undoc-members:
    :show-inheritance:
 
-cookiecutter.utils module
+mlpstamps.utils module
 -------------------------
 
-.. automodule:: cookiecutter.utils
+.. automodule:: mlpstamps.utils
    :members:
    :undoc-members:
    :show-inheritance:
 
-cookiecutter.vcs module
+mlpstamps.vcs module
 -----------------------
 
-.. automodule:: cookiecutter.vcs
+.. automodule:: mlpstamps.vcs
    :members:
    :undoc-members:
    :show-inheritance:
 
-cookiecutter.zipfile module
+mlpstamps.zipfile module
 ---------------------------
 
-.. automodule:: cookiecutter.zipfile
+.. automodule:: mlpstamps.zipfile
    :members:
    :undoc-members:
    :show-inheritance:
@@ -135,7 +135,7 @@ cookiecutter.zipfile module
 Module contents
 ---------------
 
-.. automodule:: cookiecutter
+.. automodule:: mlpstamps
    :members:
    :undoc-members:
    :show-inheritance:

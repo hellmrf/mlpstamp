@@ -3,9 +3,9 @@
 Copy without Render
 -------------------
 
-*New in Cookiecutter 1.1*
+*New in mlpstamps 1.1*
 
-To avoid rendering directories and files of a cookiecutter, the ``_copy_without_render`` key can be used in the ``cookiecutter.json``.
+To avoid rendering directories and files of a mlpstamps, the ``_copy_without_render`` key can be used in the ``mlpstamps.json``.
 The value of this key accepts a list of Unix shell-style wildcards:
 
 .. code-block:: JSON
@@ -29,8 +29,8 @@ This allows you to write:
     {
         "project_slug": "sample",
         "_copy_without_render": [
-            "{{cookiecutter.repo_name}}/templates/*.html",
+            "{{mlpstamps.repo_name}}/templates/*.html",
         ]
     }
 
-In this example, ``{{cookiecutter.repo_name}}`` will be rendered as expected but the html file content will be copied without rendering.
+In this example, ``{{mlpstamps.repo_name}}`` will be rendered as expected but the html file content will be copied without rendering.

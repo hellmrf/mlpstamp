@@ -2,6 +2,6 @@
 Fake Project
 ============
 
-Project name: **{{ cookiecutter.project_name }}**
+Project name: **{{ mlpstamps.project_name }}**
 
 Blah!!!!

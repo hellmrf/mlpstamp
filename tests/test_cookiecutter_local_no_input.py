@@ -1,7 +1,7 @@
-"""Test cookiecutter for work without any input.
+"""Test mlpstamps for work without any input.
 
-Tests in this file execute `cookiecutter()` with `no_input=True` flag and
-verify result with different settings in `cookiecutter.json`.
+Tests in this file execute `mlpstamps()` with `no_input=True` flag and
+verify result with different settings in `mlpstamps.json`.
 """
 
 import os
@@ -10,7 +10,7 @@ from pathlib import Path
 
 import pytest
 
-from cookiecutter import main, utils
+from mlpstamps import main, utils
 
 
 @pytest.fixture(scope='function')
@@ -34,10 +34,10 @@ def remove_additional_dirs(request) -> None:
 
 @pytest.mark.parametrize('path', ['tests/fake-repo-pre/', 'tests/fake-repo-pre'])
 @pytest.mark.usefixtures('clean_system', 'remove_additional_dirs')
-def test_cookiecutter_no_input_return_project_dir(path) -> None:
-    """Verify `cookiecutter` create project dir on input with or without slash."""
-    project_dir = main.cookiecutter(path, no_input=True)
-    assert os.path.isdir('tests/fake-repo-pre/{{cookiecutter.repo_name}}')
+def test_mlpstamps_no_input_return_project_dir(path) -> None:
+    """Verify `mlpstamps` create project dir on input with or without slash."""
+    project_dir = main.mlpstamps(path, no_input=True)
+    assert os.path.isdir('tests/fake-repo-pre/{{mlpstamps.repo_name}}')
     assert not os.path.isdir('tests/fake-repo-pre/fake-project')
     assert os.path.isdir(project_dir)
     assert os.path.isfile('fake-project/README.rst')
@@ -45,9 +45,9 @@ def test_cookiecutter_no_input_return_project_dir(path) -> None:
 
 
 @pytest.mark.usefixtures('clean_system', 'remove_additional_dirs')
-def test_cookiecutter_no_input_extra_context() -> None:
-    """Verify `cookiecutter` accept `extra_context` argument."""
-    main.cookiecutter(
+def test_mlpstamps_no_input_extra_context() -> None:
+    """Verify `mlpstamps` accept `extra_context` argument."""
+    main.mlpstamps(
         'tests/fake-repo-pre',
         no_input=True,
         extra_context={'repo_name': 'fake-project-extra'},
@@ -56,25 +56,25 @@ def test_cookiecutter_no_input_extra_context() -> None:
 
 
 @pytest.mark.usefixtures('clean_system', 'remove_additional_dirs')
-def test_cookiecutter_templated_context() -> None:
-    """Verify Jinja2 templating correctly works in `cookiecutter.json` file."""
-    main.cookiecutter('tests/fake-repo-tmpl', no_input=True)
+def test_mlpstamps_templated_context() -> None:
+    """Verify Jinja2 templating correctly works in `mlpstamps.json` file."""
+    main.mlpstamps('tests/fake-repo-tmpl', no_input=True)
     assert os.path.isdir('fake-project-templated')
 
 
 @pytest.mark.usefixtures('clean_system', 'remove_additional_dirs')
-def test_cookiecutter_no_input_return_rendered_file() -> None:
-    """Verify Jinja2 templating correctly works in `cookiecutter.json` file."""
-    project_dir = main.cookiecutter('tests/fake-repo-pre', no_input=True)
+def test_mlpstamps_no_input_return_rendered_file() -> None:
+    """Verify Jinja2 templating correctly works in `mlpstamps.json` file."""
+    project_dir = main.mlpstamps('tests/fake-repo-pre', no_input=True)
     assert project_dir == os.path.abspath('fake-project')
     content = Path(project_dir, 'README.rst').read_text()
     assert "Project name: **Fake Project**" in content
 
 
 @pytest.mark.usefixtures('clean_system', 'remove_additional_dirs')
-def test_cookiecutter_dict_values_in_context() -> None:
-    """Verify configured dictionary from `cookiecutter.json` correctly unpacked."""
-    project_dir = main.cookiecutter('tests/fake-repo-dict', no_input=True)
+def test_mlpstamps_dict_values_in_context() -> None:
+    """Verify configured dictionary from `mlpstamps.json` correctly unpacked."""
+    project_dir = main.mlpstamps('tests/fake-repo-dict', no_input=True)
     assert project_dir == os.path.abspath('fake-project-dict')
 
     content = Path(project_dir, 'README.md').read_text()
@@ -122,15 +122,15 @@ def test_cookiecutter_dict_values_in_context() -> None:
 
 
 @pytest.mark.usefixtures('clean_system', 'remove_additional_dirs')
-def test_cookiecutter_template_cleanup(mocker) -> None:
+def test_mlpstamps_template_cleanup(mocker) -> None:
     """Verify temporary folder for zip unpacking dropped."""
     mocker.patch('tempfile.mkdtemp', return_value='fake-tmp', autospec=True)
 
     mocker.patch(
-        'cookiecutter.prompt.prompt_and_delete', return_value=True, autospec=True
+        'mlpstamps.prompt.prompt_and_delete', return_value=True, autospec=True
     )
 
-    main.cookiecutter('tests/files/fake-repo-tmpl.zip', no_input=True)
+    main.mlpstamps('tests/files/fake-repo-tmpl.zip', no_input=True)
     assert os.path.isdir('fake-project-templated')
 
     # The tmp directory will still exist, but the

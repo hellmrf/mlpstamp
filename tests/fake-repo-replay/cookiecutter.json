@@ -3,7 +3,7 @@
   "email": "audreyr@gmail.com",
   "github_username": "audreyr",
   "project_name": "Replay Project",
-  "repo_name": "{{ cookiecutter.project_name|lower|replace(' ', '-') }}",
+  "repo_name": "{{ mlpstamps.project_name|lower|replace(' ', '-') }}",
   "description": "original",
   "release_date": "2013-07-28",
   "year": "2013",

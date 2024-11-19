@@ -1,7 +1,7 @@
 """
-test_cookiecutter_invocation.
+test_mlpstamps_invocation.
 
-Tests to make sure that cookiecutter can be called from the cli without
+Tests to make sure that mlpstamps can be called from the cli without
 using the entry point set up for the package.
 """
 
@@ -11,7 +11,7 @@ import sys
 
 import pytest
 
-from cookiecutter import utils
+from mlpstamps import utils
 
 
 @pytest.fixture
@@ -32,7 +32,7 @@ def test_should_invoke_main(monkeypatch, project_dir) -> None:
         [
             sys.executable,
             '-m',
-            'cookiecutter.cli',
+            'mlpstamps.cli',
             'tests/fake-repo-tmpl',
             '--no-input',
         ]

@@ -1,1 +1,1 @@
-{{cookiecutter.description}}
+{{mlpstamps.description}}

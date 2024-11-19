@@ -9,8 +9,8 @@ import pytest
 from jinja2 import FileSystemLoader
 from jinja2.exceptions import TemplateSyntaxError
 
-from cookiecutter import generate
-from cookiecutter.environment import StrictEnvironment
+from mlpstamps import generate
+from mlpstamps.environment import StrictEnvironment
 
 
 @pytest.fixture(scope='function', autouse=True)
@@ -29,8 +29,8 @@ def tear_down():
         os.remove('tests/files/cheese_crlf_newlines.txt')
     if os.path.exists('tests/files/cheese_mixed_newlines.txt'):
         os.remove('tests/files/cheese_mixed_newlines.txt')
-    if os.path.exists('tests/files/{{cookiecutter.generate_file}}_mixed_newlines.txt'):
-        os.remove('tests/files/{{cookiecutter.generate_file}}_mixed_newlines.txt')
+    if os.path.exists('tests/files/{{mlpstamps.generate_file}}_mixed_newlines.txt'):
+        os.remove('tests/files/{{mlpstamps.generate_file}}_mixed_newlines.txt')
 
 
 @pytest.fixture
@@ -43,11 +43,11 @@ def env():
 
 def test_generate_file(env) -> None:
     """Verify simple file is generated with rendered context data."""
-    infile = 'tests/files/{{cookiecutter.generate_file}}.txt'
+    infile = 'tests/files/{{mlpstamps.generate_file}}.txt'
     generate.generate_file(
         project_dir=".",
         infile=infile,
-        context={'cookiecutter': {'generate_file': 'cheese'}},
+        context={'mlpstamps': {'generate_file': 'cheese'}},
         env=env,
     )
     assert os.path.isfile('tests/files/cheese.txt')
@@ -57,10 +57,10 @@ def test_generate_file(env) -> None:
 
 def test_generate_file_jsonify_filter(env) -> None:
     """Verify jsonify filter works during files generation process."""
-    infile = 'tests/files/{{cookiecutter.jsonify_file}}.txt'
+    infile = 'tests/files/{{mlpstamps.jsonify_file}}.txt'
     data = {'jsonify_file': 'cheese', 'type': 'roquefort'}
     generate.generate_file(
-        project_dir=".", infile=infile, context={'cookiecutter': data}, env=env
+        project_dir=".", infile=infile, context={'mlpstamps': data}, env=env
     )
     assert os.path.isfile('tests/files/cheese.txt')
     generated_text = Path('tests/files/cheese.txt').read_text()
@@ -71,9 +71,9 @@ def test_generate_file_jsonify_filter(env) -> None:
 @pytest.mark.parametrize("punctuation", (True, False))
 def test_generate_file_random_ascii_string(env, length, punctuation) -> None:
     """Verify correct work of random_ascii_string extension on file generation."""
-    infile = 'tests/files/{{cookiecutter.random_string_file}}.txt'
+    infile = 'tests/files/{{mlpstamps.random_string_file}}.txt'
     data = {'random_string_file': 'cheese'}
-    context = {"cookiecutter": data, "length": length, "punctuation": punctuation}
+    context = {"mlpstamps": data, "length": length, "punctuation": punctuation}
     generate.generate_file(project_dir=".", infile=infile, context=context, env=env)
     assert os.path.isfile('tests/files/cheese.txt')
     generated_text = Path('tests/files/cheese.txt').read_text()
@@ -86,12 +86,12 @@ def test_generate_file_with_true_condition(env) -> None:
     This test has positive answer, so file should be rendered.
     """
     infile = (
-        'tests/files/{% if cookiecutter.generate_file == \'y\' %}cheese.txt{% endif %}'
+        'tests/files/{% if mlpstamps.generate_file == \'y\' %}cheese.txt{% endif %}'
     )
     generate.generate_file(
         project_dir=".",
         infile=infile,
-        context={'cookiecutter': {'generate_file': 'y'}},
+        context={'mlpstamps': {'generate_file': 'y'}},
         env=env,
     )
     assert os.path.isfile('tests/files/cheese.txt')
@@ -105,12 +105,12 @@ def test_generate_file_with_false_condition(env) -> None:
     This test has negative answer, so file should not be rendered.
     """
     infile = (
-        'tests/files/{% if cookiecutter.generate_file == \'y\' %}cheese.txt{% endif %}'
+        'tests/files/{% if mlpstamps.generate_file == \'y\' %}cheese.txt{% endif %}'
     )
     generate.generate_file(
         project_dir=".",
         infile=infile,
-        context={'cookiecutter': {'generate_file': 'n'}},
+        context={'mlpstamps': {'generate_file': 'n'}},
         env=env,
     )
     assert not os.path.isfile('tests/files/cheese.txt')
@@ -140,11 +140,11 @@ def test_generate_file_verbose_template_syntax_error(env, expected_msg_regex) ->
 
 def test_generate_file_does_not_translate_lf_newlines_to_crlf(env) -> None:
     """Verify that file generation use same line ending, as in source file."""
-    infile = 'tests/files/{{cookiecutter.generate_file}}_lf_newlines.txt'
+    infile = 'tests/files/{{mlpstamps.generate_file}}_lf_newlines.txt'
     generate.generate_file(
         project_dir=".",
         infile=infile,
-        context={'cookiecutter': {'generate_file': 'cheese'}},
+        context={'mlpstamps': {'generate_file': 'cheese'}},
         env=env,
     )
 
@@ -158,11 +158,11 @@ def test_generate_file_does_not_translate_lf_newlines_to_crlf(env) -> None:
 
 def test_generate_file_does_not_translate_crlf_newlines_to_lf(env) -> None:
     """Verify that file generation use same line ending, as in source file."""
-    infile = 'tests/files/{{cookiecutter.generate_file}}_crlf_newlines.txt'
+    infile = 'tests/files/{{mlpstamps.generate_file}}_crlf_newlines.txt'
     generate.generate_file(
         project_dir=".",
         infile=infile,
-        context={'cookiecutter': {'generate_file': 'cheese'}},
+        context={'mlpstamps': {'generate_file': 'cheese'}},
         env=env,
     )
 
@@ -176,14 +176,14 @@ def test_generate_file_does_not_translate_crlf_newlines_to_lf(env) -> None:
 
 def test_generate_file_handles_mixed_line_endings(env) -> None:
     """Verify that file generation gracefully handles mixed line endings."""
-    infile = 'tests/files/{{cookiecutter.generate_file}}_mixed_newlines.txt'
+    infile = 'tests/files/{{mlpstamps.generate_file}}_mixed_newlines.txt'
     with open(infile, mode='w', encoding='utf-8', newline='') as f:
         f.write('newline is CRLF\r\n')
         f.write('newline is LF\n')
     generate.generate_file(
         project_dir=".",
         infile=infile,
-        context={'cookiecutter': {'generate_file': 'cheese'}},
+        context={'mlpstamps': {'generate_file': 'cheese'}},
         env=env,
     )
 

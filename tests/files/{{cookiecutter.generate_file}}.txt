@@ -1,1 +1,1 @@
-Testing {{ cookiecutter.generate_file }}
+Testing {{ mlpstamps.generate_file }}

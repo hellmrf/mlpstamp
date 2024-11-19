@@ -15,8 +15,8 @@ from jinja2.exceptions import UndefinedError
 from rich.prompt import Confirm, InvalidResponse, Prompt, PromptBase
 from typing_extensions import TypeAlias
 
-from cookiecutter.exceptions import UndefinedVariableInTemplate
-from cookiecutter.utils import create_env_with_context, rmtree
+from mlpstamps.exceptions import UndefinedVariableInTemplate
+from mlpstamps.utils import create_env_with_context, rmtree
 
 if TYPE_CHECKING:
     from jinja2 import Environment
@@ -199,21 +199,21 @@ _Raw: TypeAlias = Union[bool, Dict["_Raw", "_Raw"], List["_Raw"], str, None]
 def render_variable(
     env: Environment,
     raw: _Raw,
-    cookiecutter_dict: dict[str, Any],
+    mlpstamps_dict: dict[str, Any],
 ) -> str:
     """Render the next variable to be displayed in the user prompt.
 
-    Inside the prompting taken from the cookiecutter.json file, this renders
+    Inside the prompting taken from the mlpstamps.json file, this renders
     the next variable. For example, if a project_name is "Peanut Butter
     Cookie", the repo_name could be be rendered with:
 
-        `{{ cookiecutter.project_name.replace(" ", "_") }}`.
+        `{{ mlpstamps.project_name.replace(" ", "_") }}`.
 
     This is then presented to the user as the default.
 
     :param Environment env: A Jinja2 Environment object.
     :param raw: The next value to be prompted for by the user.
-    :param dict cookiecutter_dict: The current context as it's gradually
+    :param dict mlpstamps_dict: The current context as it's gradually
         being populated with variables.
     :return: The rendered value for the default variable.
     """
@@ -221,19 +221,19 @@ def render_variable(
         return raw
     if isinstance(raw, dict):
         return {
-            render_variable(env, k, cookiecutter_dict): render_variable(
-                env, v, cookiecutter_dict
+            render_variable(env, k, mlpstamps_dict): render_variable(
+                env, v, mlpstamps_dict
             )
             for k, v in raw.items()
         }
     if isinstance(raw, list):
-        return [render_variable(env, v, cookiecutter_dict) for v in raw]
+        return [render_variable(env, v, mlpstamps_dict) for v in raw]
     if not isinstance(raw, str):
         raw = str(raw)
 
     template = env.from_string(raw)
 
-    return template.render(cookiecutter=cookiecutter_dict)
+    return template.render(mlpstamps=mlpstamps_dict)
 
 
 def _prompts_from_options(options: dict) -> dict:
@@ -260,7 +260,7 @@ def prompt_choice_for_template(
 
 
 def prompt_choice_for_config(
-    cookiecutter_dict: dict[str, Any],
+    mlpstamps_dict: dict[str, Any],
     env: Environment,
     key: str,
     options,
@@ -272,7 +272,7 @@ def prompt_choice_for_config(
 
     :param no_input: Do not prompt for user input and return the first available option.
     """
-    rendered_options = [render_variable(env, raw, cookiecutter_dict) for raw in options]
+    rendered_options = [render_variable(env, raw, mlpstamps_dict) for raw in options]
     if no_input:
         return rendered_options[0]
     return read_user_choice(key, rendered_options, prompts, prefix)
@@ -286,23 +286,23 @@ def prompt_for_config(
     :param dict context: Source for field names and sample values.
     :param no_input: Do not prompt for user input and use only values from context.
     """
-    cookiecutter_dict = OrderedDict([])
+    mlpstamps_dict = OrderedDict([])
     env = create_env_with_context(context)
-    prompts = context['cookiecutter'].pop('__prompts__', {})
+    prompts = context['mlpstamps'].pop('__prompts__', {})
 
     # First pass: Handle simple and raw variables, plus choices.
     # These must be done first because the dictionaries keys and
     # values might refer to them.
     count = 0
-    all_prompts = context['cookiecutter'].items()
+    all_prompts = context['mlpstamps'].items()
     visible_prompts = [k for k, _ in all_prompts if not k.startswith("_")]
     size = len(visible_prompts)
     for key, raw in all_prompts:
         if key.startswith('_') and not key.startswith('__'):
-            cookiecutter_dict[key] = raw
+            mlpstamps_dict[key] = raw
             continue
         if key.startswith('__'):
-            cookiecutter_dict[key] = render_variable(env, raw, cookiecutter_dict)
+            mlpstamps_dict[key] = render_variable(env, raw, mlpstamps_dict)
             continue
 
         if not isinstance(raw, dict):
@@ -313,31 +313,31 @@ def prompt_for_config(
             if isinstance(raw, list):
                 # We are dealing with a choice variable
                 val = prompt_choice_for_config(
-                    cookiecutter_dict, env, key, raw, no_input, prompts, prefix
+                    mlpstamps_dict, env, key, raw, no_input, prompts, prefix
                 )
-                cookiecutter_dict[key] = val
+                mlpstamps_dict[key] = val
             elif isinstance(raw, bool):
                 # We are dealing with a boolean variable
                 if no_input:
-                    cookiecutter_dict[key] = render_variable(
-                        env, raw, cookiecutter_dict
+                    mlpstamps_dict[key] = render_variable(
+                        env, raw, mlpstamps_dict
                     )
                 else:
-                    cookiecutter_dict[key] = read_user_yes_no(key, raw, prompts, prefix)
+                    mlpstamps_dict[key] = read_user_yes_no(key, raw, prompts, prefix)
             elif not isinstance(raw, dict):
                 # We are dealing with a regular variable
-                val = render_variable(env, raw, cookiecutter_dict)
+                val = render_variable(env, raw, mlpstamps_dict)
 
                 if not no_input:
                     val = read_user_variable(key, val, prompts, prefix)
 
-                cookiecutter_dict[key] = val
+                mlpstamps_dict[key] = val
         except UndefinedError as err:
             msg = f"Unable to render variable '{key}'"
             raise UndefinedVariableInTemplate(msg, err, context) from err
 
     # Second pass; handle the dictionaries.
-    for key, raw in context['cookiecutter'].items():
+    for key, raw in context['mlpstamps'].items():
         # Skip private type dicts not to be rendered.
         if key.startswith('_') and not key.startswith('__'):
             continue
@@ -347,17 +347,17 @@ def prompt_for_config(
                 # We are dealing with a dict variable
                 count += 1
                 prefix = f"  [dim][{count}/{size}][/] "
-                val = render_variable(env, raw, cookiecutter_dict)
+                val = render_variable(env, raw, mlpstamps_dict)
 
                 if not no_input and not key.startswith('__'):
                     val = read_user_dict(key, val, prompts, prefix)
 
-                cookiecutter_dict[key] = val
+                mlpstamps_dict[key] = val
         except UndefinedError as err:
             msg = f"Unable to render variable '{key}'"
             raise UndefinedVariableInTemplate(msg, err, context) from err
 
-    return cookiecutter_dict
+    return mlpstamps_dict
 
 
 def choose_nested_template(
@@ -370,12 +370,12 @@ def choose_nested_template(
     :param no_input: Do not prompt for user input and use only values from context.
     :returns: Path to the selected template.
     """
-    cookiecutter_dict: OrderedDict[str, Any] = OrderedDict([])
+    mlpstamps_dict: OrderedDict[str, Any] = OrderedDict([])
     env = create_env_with_context(context)
     prefix = ""
-    prompts = context['cookiecutter'].pop('__prompts__', {})
+    prompts = context['mlpstamps'].pop('__prompts__', {})
     key = "templates"
-    config = context['cookiecutter'].get(key, {})
+    config = context['mlpstamps'].get(key, {})
     if config:
         # Pass
         val = prompt_choice_for_template(key, config, no_input)
@@ -383,9 +383,9 @@ def choose_nested_template(
     else:
         # Old style
         key = "template"
-        config = context['cookiecutter'].get(key, [])
+        config = context['mlpstamps'].get(key, [])
         val = prompt_choice_for_config(
-            cookiecutter_dict, env, key, config, no_input, prompts, prefix
+            mlpstamps_dict, env, key, config, no_input, prompts, prefix
         )
         template = re.search(r'\((.+)\)', val).group(1)
 

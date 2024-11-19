@@ -12,14 +12,14 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing_extensions import Literal
 
-from cookiecutter.exceptions import (
+from mlpstamps.exceptions import (
     RepositoryCloneFailed,
     RepositoryNotFound,
     UnknownRepoType,
     VCSNotInstalled,
 )
-from cookiecutter.prompt import prompt_and_delete
-from cookiecutter.utils import make_sure_path_exists
+from mlpstamps.prompt import prompt_and_delete
+from mlpstamps.utils import make_sure_path_exists
 
 logger = logging.getLogger(__name__)
 

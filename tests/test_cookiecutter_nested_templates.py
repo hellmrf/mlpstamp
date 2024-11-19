@@ -1,10 +1,10 @@
-"""Test cookiecutter invocation with nested configuration structure."""
+"""Test mlpstamps invocation with nested configuration structure."""
 
 from pathlib import Path
 
 import pytest
 
-from cookiecutter import main
+from mlpstamps import main
 
 
 @pytest.mark.parametrize(
@@ -14,12 +14,12 @@ from cookiecutter import main
         ["fake-nested-templates-old-style", "fake-package"],
     ],
 )
-def test_cookiecutter_nested_templates(
+def test_mlpstamps_nested_templates(
     mocker, template_dir: str, output_dir: str
 ) -> None:
-    """Verify cookiecutter nested configuration files mechanism."""
-    mock_generate_files = mocker.patch("cookiecutter.main.generate_files")
+    """Verify mlpstamps nested configuration files mechanism."""
+    mock_generate_files = mocker.patch("mlpstamps.main.generate_files")
     main_dir = (Path("tests") / template_dir).resolve()
-    main.cookiecutter(f"{main_dir}", no_input=True)
+    main.mlpstamps(f"{main_dir}", no_input=True)
     expected = (Path(main_dir) / output_dir).resolve()
     assert mock_generate_files.call_args[1]["repo_dir"] == f"{expected}"

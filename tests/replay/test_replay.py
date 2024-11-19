@@ -4,7 +4,7 @@ import os
 
 import pytest
 
-from cookiecutter import exceptions, main, replay
+from mlpstamps import exceptions, main, replay
 
 
 @pytest.mark.parametrize("replay_file_name", ['bar', 'bar.json'])
@@ -24,20 +24,20 @@ def test_get_replay_file_name(replay_file_name) -> None:
     ),
 )
 def test_raise_on_invalid_mode(invalid_kwargs) -> None:
-    """Test `cookiecutter` raise exception on unacceptable `replay` request."""
+    """Test `mlpstamps` raise exception on unacceptable `replay` request."""
     with pytest.raises(exceptions.InvalidModeException):
-        main.cookiecutter('foo', replay=True, **invalid_kwargs)
+        main.mlpstamps('foo', replay=True, **invalid_kwargs)
 
 
 def test_main_does_not_invoke_dump_but_load(mocker) -> None:
-    """Test `cookiecutter` calling correct functions on `replay`."""
-    mock_prompt = mocker.patch('cookiecutter.main.prompt_for_config')
-    mock_gen_context = mocker.patch('cookiecutter.main.generate_context')
-    mock_gen_files = mocker.patch('cookiecutter.main.generate_files')
-    mock_replay_dump = mocker.patch('cookiecutter.main.dump')
-    mock_replay_load = mocker.patch('cookiecutter.main.load')
+    """Test `mlpstamps` calling correct functions on `replay`."""
+    mock_prompt = mocker.patch('mlpstamps.main.prompt_for_config')
+    mock_gen_context = mocker.patch('mlpstamps.main.generate_context')
+    mock_gen_files = mocker.patch('mlpstamps.main.generate_files')
+    mock_replay_dump = mocker.patch('mlpstamps.main.dump')
+    mock_replay_load = mocker.patch('mlpstamps.main.load')
 
-    main.cookiecutter('tests/fake-repo-tmpl/', replay=True)
+    main.mlpstamps('tests/fake-repo-tmpl/', replay=True)
 
     assert not mock_prompt.called
     assert mock_gen_context.called
@@ -47,14 +47,14 @@ def test_main_does_not_invoke_dump_but_load(mocker) -> None:
 
 
 def test_main_does_not_invoke_load_but_dump(mocker) -> None:
-    """Test `cookiecutter` calling correct functions on non-replay launch."""
-    mock_prompt = mocker.patch('cookiecutter.main.prompt_for_config')
-    mock_gen_context = mocker.patch('cookiecutter.main.generate_context')
-    mock_gen_files = mocker.patch('cookiecutter.main.generate_files')
-    mock_replay_dump = mocker.patch('cookiecutter.main.dump')
-    mock_replay_load = mocker.patch('cookiecutter.main.load')
+    """Test `mlpstamps` calling correct functions on non-replay launch."""
+    mock_prompt = mocker.patch('mlpstamps.main.prompt_for_config')
+    mock_gen_context = mocker.patch('mlpstamps.main.generate_context')
+    mock_gen_files = mocker.patch('mlpstamps.main.generate_files')
+    mock_replay_dump = mocker.patch('mlpstamps.main.dump')
+    mock_replay_load = mocker.patch('mlpstamps.main.load')
 
-    main.cookiecutter('tests/fake-repo-tmpl/', replay=False)
+    main.mlpstamps('tests/fake-repo-tmpl/', replay=False)
 
     assert mock_prompt.called
     assert mock_gen_context.called

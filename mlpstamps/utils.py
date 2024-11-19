@@ -13,7 +13,7 @@ from typing import TYPE_CHECKING, Any, Iterator
 
 from jinja2.ext import Extension
 
-from cookiecutter.environment import StrictEnvironment
+from mlpstamps.environment import StrictEnvironment
 
 if TYPE_CHECKING:
     from jinja2 import Environment
@@ -91,7 +91,7 @@ def simple_filter(filter_function) -> type[Extension]:  # type: ignore[no-untype
 def create_tmp_repo_dir(repo_dir: Path | str) -> Path:
     """Create a temporary dir with a copy of the contents of repo_dir."""
     repo_dir = Path(repo_dir).resolve()
-    base_dir = tempfile.mkdtemp(prefix='cookiecutter')
+    base_dir = tempfile.mkdtemp(prefix='mlpstamps')
     new_dir = f"{base_dir}/{repo_dir.name}"
     logger.debug(f'Copying repo_dir from {repo_dir} to {new_dir}')
     shutil.copytree(repo_dir, new_dir)
@@ -100,6 +100,6 @@ def create_tmp_repo_dir(repo_dir: Path | str) -> Path:
 
 def create_env_with_context(context: dict[str, Any]) -> StrictEnvironment:
     """Create a jinja environment using the provided context."""
-    envvars = context.get('cookiecutter', {}).get('_jinja2_env_vars', {})
+    envvars = context.get('mlpstamps', {}).get('_jinja2_env_vars', {})
 
     return StrictEnvironment(context=context, keep_trailing_newline=True, **envvars)

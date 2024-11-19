@@ -109,7 +109,7 @@ class InvalidModeException(CookiecutterException):
     """
     Exception for incompatible modes.
 
-    Raised when cookiecutter is called with both `no_input==True` and
+    Raised when mlpstamps is called with both `no_input==True` and
     `replay==True` at the same time.
     """
 
@@ -159,7 +159,7 @@ class RepositoryNotFound(CookiecutterException):
     """
     Exception for missing repo.
 
-    Raised when the specified cookiecutter repository doesn't exist.
+    Raised when the specified mlpstamps repository doesn't exist.
     """
 
 
@@ -167,7 +167,7 @@ class RepositoryCloneFailed(CookiecutterException):
     """
     Exception for un-cloneable repo.
 
-    Raised when a cookiecutter template can't be cloned.
+    Raised when a mlpstamps template can't be cloned.
     """
 
 
@@ -175,6 +175,6 @@ class InvalidZipRepository(CookiecutterException):
     """
     Exception for bad zip repo.
 
-    Raised when the specified cookiecutter repository isn't a valid
+    Raised when the specified mlpstamps repository isn't a valid
     Zip archive.
     """

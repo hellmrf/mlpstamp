@@ -4,22 +4,22 @@ import logging
 
 import pytest
 
-from cookiecutter.log import configure_logger
+from mlpstamps.log import configure_logger
 
 
 def create_log_records() -> None:
     """Test function, create log entries in expected stage of test."""
-    cookiecutter_logger = logging.getLogger('cookiecutter')
-    foo_logger = logging.getLogger('cookiecutter.foo')
-    foobar_logger = logging.getLogger('cookiecutter.foo.bar')
+    mlpstamps_logger = logging.getLogger('mlpstamps')
+    foo_logger = logging.getLogger('mlpstamps.foo')
+    foobar_logger = logging.getLogger('mlpstamps.foo.bar')
 
-    cookiecutter_logger.info('Welcome to Cookiecutter')
-    cookiecutter_logger.debug('Generating project from pytest-plugin')
+    mlpstamps_logger.info('Welcome to Cookiecutter')
+    mlpstamps_logger.debug('Generating project from pytest-plugin')
     foo_logger.info('Loading user config from home dir')
     foobar_logger.debug("I don't know.")
     foobar_logger.debug('I wanted to save the world.')
     foo_logger.error('Aw, snap! Something went wrong')
-    cookiecutter_logger.debug('Successfully generated project')
+    mlpstamps_logger.debug('Successfully generated project')
 
 
 @pytest.fixture
@@ -36,25 +36,25 @@ def info_messages():
 def debug_messages():
     """Fixture. List of test debug messages."""
     return [
-        "INFO cookiecutter: Welcome to Cookiecutter",
-        "DEBUG cookiecutter: Generating project from pytest-plugin",
-        "INFO cookiecutter.foo: Loading user config from home dir",
-        "DEBUG cookiecutter.foo.bar: I don't know.",
-        "DEBUG cookiecutter.foo.bar: I wanted to save the world.",
-        "ERROR cookiecutter.foo: Aw, snap! Something went wrong",
-        "DEBUG cookiecutter: Successfully generated project",
+        "INFO mlpstamps: Welcome to Cookiecutter",
+        "DEBUG mlpstamps: Generating project from pytest-plugin",
+        "INFO mlpstamps.foo: Loading user config from home dir",
+        "DEBUG mlpstamps.foo.bar: I don't know.",
+        "DEBUG mlpstamps.foo.bar: I wanted to save the world.",
+        "ERROR mlpstamps.foo: Aw, snap! Something went wrong",
+        "DEBUG mlpstamps: Successfully generated project",
     ]
 
 
 @pytest.fixture
 def info_logger():
-    """Fixture. Call cookiecutter logger setup with `info` debug level."""
+    """Fixture. Call mlpstamps logger setup with `info` debug level."""
     return configure_logger(stream_level='INFO')
 
 
 @pytest.fixture
 def debug_logger():
-    """Fixture. Call cookiecutter logger setup with `debug` debug level."""
+    """Fixture. Call mlpstamps logger setup with `debug` debug level."""
     return configure_logger(stream_level='DEBUG')
 
 
@@ -66,7 +66,7 @@ def debug_file(tmp_path):
 
 @pytest.fixture
 def info_logger_with_file(debug_file):
-    """Fixture. Call cookiecutter logger setup with `info` debug level + `file`."""
+    """Fixture. Call mlpstamps logger setup with `info` debug level + `file`."""
     return configure_logger(stream_level='INFO', debug_file=str(debug_file))
 
 

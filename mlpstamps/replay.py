@@ -1,5 +1,5 @@
 """
-cookiecutter.replay.
+mlpstamps.replay.
 
 -------------------
 """
@@ -10,7 +10,7 @@ import json
 import os
 from typing import TYPE_CHECKING, Any
 
-from cookiecutter.utils import make_sure_path_exists
+from mlpstamps.utils import make_sure_path_exists
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -27,8 +27,8 @@ def dump(replay_dir: Path | str, template_name: str, context: dict[str, Any]) ->
     """Write json data to file."""
     make_sure_path_exists(replay_dir)
 
-    if 'cookiecutter' not in context:
-        msg = 'Context is required to contain a cookiecutter key'
+    if 'mlpstamps' not in context:
+        msg = 'Context is required to contain a mlpstamps key'
         raise ValueError(msg)
 
     replay_file = get_file_name(replay_dir, template_name)
@@ -44,8 +44,8 @@ def load(replay_dir: Path | str, template_name: str) -> dict[str, Any]:
     with open(replay_file, encoding="utf-8") as infile:
         context: dict[str, Any] = json.load(infile)
 
-    if 'cookiecutter' not in context:
-        msg = 'Context is required to contain a cookiecutter key'
+    if 'mlpstamps' not in context:
+        msg = 'Context is required to contain a mlpstamps key'
         raise ValueError(msg)
 
     return context

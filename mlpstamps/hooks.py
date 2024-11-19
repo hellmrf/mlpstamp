@@ -1,4 +1,4 @@
-"""Functions for discovering and executing various cookiecutter hooks."""
+"""Functions for discovering and executing various mlpstamps hooks."""
 
 from __future__ import annotations
 
@@ -13,9 +13,9 @@ from typing import Any
 
 from jinja2.exceptions import UndefinedError
 
-from cookiecutter import utils
-from cookiecutter.exceptions import FailedHookException
-from cookiecutter.utils import (
+from mlpstamps import utils
+from mlpstamps.exceptions import FailedHookException
+from mlpstamps.utils import (
     create_env_with_context,
     create_tmp_repo_dir,
     rmtree,

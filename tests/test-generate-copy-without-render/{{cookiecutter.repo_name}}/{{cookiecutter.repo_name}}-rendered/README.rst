@@ -2,4 +2,4 @@
 Fake Project
 ============
 
-{{cookiecutter.render_test}}
+{{mlpstamps.render_test}}

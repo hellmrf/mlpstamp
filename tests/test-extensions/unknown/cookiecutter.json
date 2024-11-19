@@ -1,6 +1,6 @@
 {
   "project_slug": "Foobar",
-  "year": "{{cookiecutter.nope | foobar}}",
+  "year": "{{mlpstamps.nope | foobar}}",
   "_extensions": [
     "FoobarExtension"
   ]

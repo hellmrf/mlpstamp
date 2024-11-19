@@ -1,4 +1,4 @@
-"""Main `cookiecutter` CLI."""
+"""Main `mlpstamps` CLI."""
 
 from __future__ import annotations
 
@@ -17,9 +17,9 @@ if TYPE_CHECKING:
 
 import click
 
-from cookiecutter import __version__
-from cookiecutter.config import get_user_config
-from cookiecutter.exceptions import (
+from mlpstamps import __version__
+from mlpstamps.config import get_user_config
+from mlpstamps.exceptions import (
     ContextDecodingException,
     EmptyDirNameException,
     FailedHookException,
@@ -31,8 +31,8 @@ from cookiecutter.exceptions import (
     UndefinedVariableInTemplate,
     UnknownExtension,
 )
-from cookiecutter.log import configure_logger
-from cookiecutter.main import cookiecutter
+from mlpstamps.log import configure_logger
+from mlpstamps.main import mlpstamps
 
 
 def version_msg() -> str:
@@ -62,21 +62,21 @@ def validate_extra_context(
 def list_installed_templates(
     default_config: bool | dict[str, Any], passed_config_file: str | None
 ) -> None:
-    """List installed (locally cloned) templates. Use cookiecutter --list-installed."""
+    """List installed (locally cloned) templates. Use mlpstamps --list-installed."""
     config = get_user_config(passed_config_file, default_config)
-    cookiecutter_folder: str = config['cookiecutters_dir']
-    if not os.path.exists(cookiecutter_folder):
+    mlpstamps_folder: str = config['mlpstampss_dir']
+    if not os.path.exists(mlpstamps_folder):
         click.echo(
             f"Error: Cannot list installed templates. "
-            f"Folder does not exist: {cookiecutter_folder}"
+            f"Folder does not exist: {mlpstamps_folder}"
         )
         sys.exit(-1)
 
     template_names = [
         folder
-        for folder in os.listdir(cookiecutter_folder)
+        for folder in os.listdir(mlpstamps_folder)
         if os.path.exists(
-            os.path.join(cookiecutter_folder, folder, 'cookiecutter.json')
+            os.path.join(mlpstamps_folder, folder, 'mlpstamps.json')
         )
     ]
     click.echo(f'{len(template_names)} installed templates: ')
@@ -91,7 +91,7 @@ def list_installed_templates(
 @click.option(
     '--no-input',
     is_flag=True,
-    help='Do not prompt for parameters and only use cookiecutter.json file content. '
+    help='Do not prompt for parameters and only use mlpstamps.json file content. '
     'Defaults to deleting any cached resources and redownloading them. '
     'Cannot be combined with the --replay flag.',
 )
@@ -102,7 +102,7 @@ def list_installed_templates(
 )
 @click.option(
     '--directory',
-    help='Directory within repo that holds cookiecutter.json file '
+    help='Directory within repo that holds mlpstamps.json file '
     'for advanced repositories with multi templates in it',
 )
 @click.option(
@@ -191,7 +191,7 @@ def main(
 
     Cookiecutter is free and open source software, developed and managed by
     volunteers. If you would like to help out or fund the project, please get
-    in touch at https://github.com/cookiecutter/cookiecutter.
+    in touch at https://github.com/mlpstamps/mlpstamps.
     """
     # Commands that should work without arguments
     if list_installed:
@@ -216,7 +216,7 @@ def main(
         replay = replay_file
 
     try:
-        cookiecutter(
+        mlpstamps(
             template,
             checkout,
             no_input,

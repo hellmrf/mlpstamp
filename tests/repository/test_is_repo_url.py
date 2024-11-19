@@ -1,9 +1,9 @@
-"""Tests for all supported cookiecutter template repository locations."""
+"""Tests for all supported mlpstamps template repository locations."""
 
 import pytest
 
-from cookiecutter.config import BUILTIN_ABBREVIATIONS
-from cookiecutter.repository import expand_abbreviations, is_repo_url, is_zip_file
+from mlpstamps.config import BUILTIN_ABBREVIATIONS
+from mlpstamps.repository import expand_abbreviations, is_repo_url, is_zip_file
 
 
 @pytest.fixture(
@@ -26,11 +26,11 @@ def test_is_zip_file(zipfile) -> None:
 @pytest.fixture(
     params=[
         'gitolite@server:team/repo',
-        'git@github.com:audreyfeldroy/cookiecutter.git',
-        'https://github.com/cookiecutter/cookiecutter.git',
+        'git@github.com:audreyfeldroy/mlpstamps.git',
+        'https://github.com/mlpstamps/mlpstamps.git',
         'git+https://private.com/gitrepo',
         'hg+https://private.com/mercurialrepo',
-        'https://bitbucket.org/pokoli/cookiecutter.hg',
+        'https://bitbucket.org/pokoli/mlpstamps.hg',
         'file://server/path/to/repo.git',
     ]
 )
@@ -46,8 +46,8 @@ def test_is_repo_url_for_remote_urls(remote_repo_url) -> None:
 
 @pytest.fixture(
     params=[
-        '/audreyr/cookiecutter.git',
-        '/home/audreyr/cookiecutter',
+        '/audreyr/mlpstamps.git',
+        '/home/audreyr/mlpstamps',
         (
             'c:\\users\\foo\\appdata\\local\\temp\\1\\pytest-0\\'
             'test_default_output_dir0\\template'
@@ -66,7 +66,7 @@ def test_is_repo_url_for_local_urls(local_repo_url) -> None:
 
 def test_expand_abbreviations() -> None:
     """Validate `repository.expand_abbreviations` correctly translate url."""
-    template = 'gh:audreyfeldroy/cookiecutter-pypackage'
+    template = 'gh:audreyfeldroy/mlpstamps-pypackage'
 
     # This is not a valid repo url just yet!
     # First `repository.expand_abbreviations` needs to translate it

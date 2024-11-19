@@ -1,5 +1,5 @@
 """
-Main entry point for the `cookiecutter` command.
+Main entry point for the `mlpstamps` command.
 
 The code in this module is also a good example of how to use Cookiecutter as a
 library rather than a script.
@@ -14,19 +14,19 @@ from copy import copy
 from pathlib import Path
 from typing import Any
 
-from cookiecutter.config import get_user_config
-from cookiecutter.exceptions import InvalidModeException
-from cookiecutter.generate import generate_context, generate_files
-from cookiecutter.hooks import run_pre_prompt_hook
-from cookiecutter.prompt import choose_nested_template, prompt_for_config
-from cookiecutter.replay import dump, load
-from cookiecutter.repository import determine_repo_dir
-from cookiecutter.utils import rmtree
+from mlpstamps.config import get_user_config
+from mlpstamps.exceptions import InvalidModeException
+from mlpstamps.generate import generate_context, generate_files
+from mlpstamps.hooks import run_pre_prompt_hook
+from mlpstamps.prompt import choose_nested_template, prompt_for_config
+from mlpstamps.replay import dump, load
+from mlpstamps.repository import determine_repo_dir
+from mlpstamps.utils import rmtree
 
 logger = logging.getLogger(__name__)
 
 
-def cookiecutter(
+def mlpstamps(
     template: str,
     checkout: str | None = None,
     no_input: bool = False,
@@ -49,7 +49,7 @@ def cookiecutter(
         or a URL to a git repository.
     :param checkout: The branch, tag or commit ID to checkout after clone.
     :param no_input: Do not prompt for user input.
-        Use default values for template parameters taken from `cookiecutter.json`, user
+        Use default values for template parameters taken from `mlpstamps.json`, user
         config and `extra_dict`. Force a refresh of cached resources.
     :param extra_context: A dictionary of context that overrides default
         and user configuration.
@@ -62,7 +62,7 @@ def cookiecutter(
     :param config_file: User configuration file path.
     :param default_config: Use default values rather than a config file.
     :param password: The password to use when extracting the repository.
-    :param directory: Relative path to a cookiecutter template in a repository.
+    :param directory: Relative path to a mlpstamps template in a repository.
     :param skip_if_file_exists: Skip the files in the corresponding directories
         if they already exist.
     :param accept_hooks: Accept pre and post hooks if set to `True`.
@@ -83,7 +83,7 @@ def cookiecutter(
     base_repo_dir, cleanup_base_repo_dir = determine_repo_dir(
         template=template,
         abbreviations=config_dict['abbreviations'],
-        clone_to_dir=config_dict['cookiecutters_dir'],
+        clone_to_dir=config_dict['mlpstampss_dir'],
         checkout=checkout,
         no_input=no_input,
         password=password,
@@ -105,7 +105,7 @@ def cookiecutter(
                 path, template_name = os.path.split(os.path.splitext(replay)[0])
                 context_from_replayfile = load(path, template_name)
 
-    context_file = os.path.join(repo_dir, 'cookiecutter.json')
+    context_file = os.path.join(repo_dir, 'mlpstamps.json')
     logger.debug('context_file is %s', context_file)
 
     if replay:
@@ -117,11 +117,11 @@ def cookiecutter(
         logger.debug('replayfile context: %s', context_from_replayfile)
         items_for_prompting = {
             k: v
-            for k, v in context['cookiecutter'].items()
-            if k not in context_from_replayfile['cookiecutter']
+            for k, v in context['mlpstamps'].items()
+            if k not in context_from_replayfile['mlpstamps']
         }
         context_for_prompting = {}
-        context_for_prompting['cookiecutter'] = items_for_prompting
+        context_for_prompting['mlpstamps'] = items_for_prompting
         context = context_from_replayfile
         logger.debug('prompting context: %s', context_for_prompting)
     else:
@@ -131,19 +131,19 @@ def cookiecutter(
             extra_context=extra_context,
         )
         context_for_prompting = context
-    # preserve the original cookiecutter options
-    # print(context['cookiecutter'])
-    context['_cookiecutter'] = {
-        k: v for k, v in context['cookiecutter'].items() if not k.startswith("_")
+    # preserve the original mlpstamps options
+    # print(context['mlpstamps'])
+    context['_mlpstamps'] = {
+        k: v for k, v in context['mlpstamps'].items() if not k.startswith("_")
     }
 
     # prompt the user to manually configure at the command line.
     # except when 'no-input' flag is set
 
     with import_patch:
-        if {"template", "templates"} & set(context["cookiecutter"].keys()):
+        if {"template", "templates"} & set(context["mlpstamps"].keys()):
             nested_template = choose_nested_template(context, repo_dir, no_input)
-            return cookiecutter(
+            return mlpstamps(
                 template=nested_template,
                 checkout=checkout,
                 no_input=no_input,
@@ -159,24 +159,24 @@ def cookiecutter(
                 accept_hooks=accept_hooks,
                 keep_project_on_failure=keep_project_on_failure,
             )
-        if context_for_prompting['cookiecutter']:
-            context['cookiecutter'].update(
+        if context_for_prompting['mlpstamps']:
+            context['mlpstamps'].update(
                 prompt_for_config(context_for_prompting, no_input)
             )
 
     logger.debug('context is %s', context)
 
     # include template dir or url in the context dict
-    context['cookiecutter']['_template'] = template
+    context['mlpstamps']['_template'] = template
 
     # include output+dir in the context dict
-    context['cookiecutter']['_output_dir'] = os.path.abspath(output_dir)
+    context['mlpstamps']['_output_dir'] = os.path.abspath(output_dir)
 
     # include repo dir or url in the context dict
-    context['cookiecutter']['_repo_dir'] = f"{repo_dir}"
+    context['mlpstamps']['_repo_dir'] = f"{repo_dir}"
 
     # include checkout details in the context dict
-    context['cookiecutter']['_checkout'] = checkout
+    context['mlpstamps']['_checkout'] = checkout
 
     dump(config_dict['replay_dir'], template_name, context)
 

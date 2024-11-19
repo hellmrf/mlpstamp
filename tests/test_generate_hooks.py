@@ -7,8 +7,8 @@ from pathlib import Path
 
 import pytest
 
-from cookiecutter import generate, utils
-from cookiecutter.exceptions import FailedHookException
+from mlpstamps import generate, utils
+from mlpstamps.exceptions import FailedHookException
 
 WINDOWS = sys.platform.startswith('win')
 
@@ -33,7 +33,7 @@ def remove_additional_folders(tmp_path):
 def test_ignore_hooks_dirs() -> None:
     """Verify hooks directory not created in target location on files generation."""
     generate.generate_files(
-        context={'cookiecutter': {'pyhooks': 'pyhooks'}},
+        context={'mlpstamps': {'pyhooks': 'pyhooks'}},
         repo_dir='tests/test-pyhooks/',
         output_dir='tests/test-pyhooks/',
     )
@@ -48,7 +48,7 @@ def test_run_python_hooks() -> None:
     created.
     """
     generate.generate_files(
-        context={'cookiecutter': {'pyhooks': 'pyhooks'}},
+        context={'mlpstamps': {'pyhooks': 'pyhooks'}},
         repo_dir='tests/test-pyhooks/',
         output_dir='tests/test-pyhooks/',
     )
@@ -64,7 +64,7 @@ def test_run_python_hooks_cwd() -> None:
     created.
     """
     generate.generate_files(
-        context={'cookiecutter': {'pyhooks': 'pyhooks'}}, repo_dir='tests/test-pyhooks/'
+        context={'mlpstamps': {'pyhooks': 'pyhooks'}}, repo_dir='tests/test-pyhooks/'
     )
     assert os.path.exists('inputpyhooks/python_pre.txt')
     assert os.path.exists('inputpyhooks/python_post.txt')
@@ -80,7 +80,7 @@ def test_empty_hooks() -> None:
     """
     with pytest.raises(FailedHookException) as excinfo:
         generate.generate_files(
-            context={'cookiecutter': {'shellhooks': 'shellhooks'}},
+            context={'mlpstamps': {'shellhooks': 'shellhooks'}},
             repo_dir='tests/test-shellhooks-empty/',
             overwrite_if_exists=True,
         )
@@ -89,7 +89,7 @@ def test_empty_hooks() -> None:
 
 @pytest.mark.usefixtures('clean_system', 'remove_additional_folders')
 def test_oserror_hooks(mocker) -> None:
-    """Verify script error passed correctly to cookiecutter error.
+    """Verify script error passed correctly to mlpstamps error.
 
     Here subprocess.Popen function mocked, ie we do not call hook script,
     just produce expected error.
@@ -104,7 +104,7 @@ def test_oserror_hooks(mocker) -> None:
 
     with pytest.raises(FailedHookException) as excinfo:
         generate.generate_files(
-            context={'cookiecutter': {'shellhooks': 'shellhooks'}},
+            context={'mlpstamps': {'shellhooks': 'shellhooks'}},
             repo_dir='tests/test-shellhooks-empty/',
             overwrite_if_exists=True,
         )
@@ -118,7 +118,7 @@ def test_run_failing_hook_removes_output_directory() -> None:
     hooks_path = os.path.abspath('tests/test-hooks/hooks')
 
     hook_dir = os.path.join(repo_path, 'hooks')
-    template = os.path.join(repo_path, 'input{{cookiecutter.hooks}}')
+    template = os.path.join(repo_path, 'input{{mlpstamps.hooks}}')
     os.mkdir(repo_path)
     os.mkdir(hook_dir)
     os.mkdir(template)
@@ -131,7 +131,7 @@ def test_run_failing_hook_removes_output_directory() -> None:
 
     with pytest.raises(FailedHookException) as excinfo:
         generate.generate_files(
-            context={'cookiecutter': {'hooks': 'hooks'}},
+            context={'mlpstamps': {'hooks': 'hooks'}},
             repo_dir='tests/test-hooks/',
             overwrite_if_exists=True,
         )
@@ -147,7 +147,7 @@ def test_run_failing_hook_preserves_existing_output_directory() -> None:
     hooks_path = os.path.abspath('tests/test-hooks/hooks')
 
     hook_dir = os.path.join(repo_path, 'hooks')
-    template = os.path.join(repo_path, 'input{{cookiecutter.hooks}}')
+    template = os.path.join(repo_path, 'input{{mlpstamps.hooks}}')
     os.mkdir(repo_path)
     os.mkdir(hook_dir)
     os.mkdir(template)
@@ -161,7 +161,7 @@ def test_run_failing_hook_preserves_existing_output_directory() -> None:
     os.mkdir('inputhooks')
     with pytest.raises(FailedHookException) as excinfo:
         generate.generate_files(
-            context={'cookiecutter': {'hooks': 'hooks'}},
+            context={'mlpstamps': {'hooks': 'hooks'}},
             repo_dir='tests/test-hooks/',
             overwrite_if_exists=True,
         )
@@ -178,7 +178,7 @@ def test_run_shell_hooks(tmp_path) -> None:
     This test for .sh files.
     """
     generate.generate_files(
-        context={'cookiecutter': {'shellhooks': 'shellhooks'}},
+        context={'mlpstamps': {'shellhooks': 'shellhooks'}},
         repo_dir='tests/test-shellhooks/',
         output_dir=tmp_path.joinpath('test-shellhooks'),
     )
@@ -200,7 +200,7 @@ def test_run_shell_hooks_win(tmp_path) -> None:
     This test for .bat files.
     """
     generate.generate_files(
-        context={'cookiecutter': {'shellhooks': 'shellhooks'}},
+        context={'mlpstamps': {'shellhooks': 'shellhooks'}},
         repo_dir='tests/test-shellhooks-win/',
         output_dir=tmp_path.joinpath('test-shellhooks-win'),
     )
@@ -218,7 +218,7 @@ def test_run_shell_hooks_win(tmp_path) -> None:
 def test_ignore_shell_hooks(tmp_path) -> None:
     """Verify *.txt files not created, when accept_hooks=False."""
     generate.generate_files(
-        context={"cookiecutter": {"shellhooks": "shellhooks"}},
+        context={"mlpstamps": {"shellhooks": "shellhooks"}},
         repo_dir="tests/test-shellhooks/",
         output_dir=tmp_path.joinpath('test-shellhooks'),
         accept_hooks=False,

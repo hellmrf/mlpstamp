@@ -3,18 +3,18 @@
 import pytest
 from rich.prompt import InvalidResponse
 
-from cookiecutter.prompt import YesNoPrompt, read_user_yes_no
+from mlpstamps.prompt import YesNoPrompt, read_user_yes_no
 
 QUESTION = 'Is it okay to delete and re-clone it?'
 DEFAULT = 'y'
 
 
 def test_click_invocation(mocker) -> None:
-    """Test click function called correctly by cookiecutter.
+    """Test click function called correctly by mlpstamps.
 
     Test for boolean type invocation.
     """
-    prompt = mocker.patch('cookiecutter.prompt.YesNoPrompt.ask')
+    prompt = mocker.patch('mlpstamps.prompt.YesNoPrompt.ask')
     prompt.return_value = DEFAULT
 
     assert read_user_yes_no(QUESTION, DEFAULT) == DEFAULT

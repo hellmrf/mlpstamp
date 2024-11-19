@@ -1,1 +1,1 @@
-{{ cookiecutter | jsonify(4) }}
+{{ mlpstamps | jsonify(4) }}

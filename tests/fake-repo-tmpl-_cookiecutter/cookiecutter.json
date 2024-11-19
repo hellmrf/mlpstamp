@@ -12,7 +12,7 @@
   "test_dict": {
     "foo": "bar"
   },
-  "repo_name": "{{ cookiecutter.project_name|lower|replace(' ', '-') }}",
+  "repo_name": "{{ mlpstamps.project_name|lower|replace(' ', '-') }}",
   "project_short_description": "This is a fake project.",
   "release_date": "2013-07-28",
   "year": "2013",

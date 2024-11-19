@@ -1,47 +1,47 @@
-"""Tests around detection whether cookiecutter templates are cached locally."""
+"""Tests around detection whether mlpstamps templates are cached locally."""
 
 import os
 from pathlib import Path
 
 import pytest
 
-from cookiecutter import repository
+from mlpstamps import repository
 
 
 @pytest.fixture
 def template() -> str:
     """Fixture. Return simple string as template name."""
-    return 'cookiecutter-pytest-plugin'
+    return 'mlpstamps-pytest-plugin'
 
 
 @pytest.fixture
-def cloned_cookiecutter_path(user_config_data, template):
+def cloned_mlpstamps_path(user_config_data, template):
     """Fixture. Create fake project directory in special user folder."""
-    cookiecutters_dir = user_config_data['cookiecutters_dir']
+    mlpstampss_dir = user_config_data['mlpstampss_dir']
 
-    cloned_template_path = os.path.join(cookiecutters_dir, template)
+    cloned_template_path = os.path.join(mlpstampss_dir, template)
     os.mkdir(cloned_template_path)
 
-    Path(cloned_template_path, "cookiecutter.json").touch()  # creates file
+    Path(cloned_template_path, "mlpstamps.json").touch()  # creates file
 
     return cloned_template_path
 
 
-def test_should_find_existing_cookiecutter(
-    template, user_config_data, cloned_cookiecutter_path
+def test_should_find_existing_mlpstamps(
+    template, user_config_data, cloned_mlpstamps_path
 ) -> None:
     """
-    Should find folder created by `cloned_cookiecutter_path` and return it.
+    Should find folder created by `cloned_mlpstamps_path` and return it.
 
     This folder is considered like previously cloned project directory.
     """
     project_dir, cleanup = repository.determine_repo_dir(
         template=template,
         abbreviations={},
-        clone_to_dir=user_config_data['cookiecutters_dir'],
+        clone_to_dir=user_config_data['mlpstampss_dir'],
         checkout=None,
         no_input=True,
     )
 
-    assert cloned_cookiecutter_path == project_dir
+    assert cloned_mlpstamps_path == project_dir
     assert not cleanup

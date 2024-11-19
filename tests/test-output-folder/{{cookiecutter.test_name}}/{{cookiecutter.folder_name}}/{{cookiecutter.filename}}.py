@@ -1,3 +1,3 @@
-"""Sample file to be created through a cookiecutter run."""
+"""Sample file to be created through a mlpstamps run."""
 
-print("These are the contents of {{ cookiecutter.filename }}.py.")
+print("These are the contents of {{ mlpstamps.filename }}.py.")

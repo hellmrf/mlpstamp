@@ -1,5 +1,5 @@
-{% if cookiecutter %}
-    {% if cookiecutter.food %}
-I eat {{ cookiecutter.food }}
+{% if mlpstamps %}
+    {% if mlpstamps.food %}
+I eat {{ mlpstamps.food }}
     {% endif %}
 {% endif %}

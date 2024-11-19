@@ -2,7 +2,7 @@
 
 import pytest
 
-from cookiecutter.prompt import read_user_choice
+from mlpstamps.prompt import read_user_choice
 
 OPTIONS = ['hello', 'world', 'foo', 'bar']
 OPTIONS_INDEX = ['1', '2', '3', '4']
@@ -17,7 +17,7 @@ EXPECTED_PROMPT = """Select varname
 
 @pytest.mark.parametrize('user_choice, expected_value', enumerate(OPTIONS, 1))
 def test_click_invocation(mocker, user_choice, expected_value) -> None:
-    """Test click function called correctly by cookiecutter.
+    """Test click function called correctly by mlpstamps.
 
     Test for choice type invocation.
     """
@@ -30,7 +30,7 @@ def test_click_invocation(mocker, user_choice, expected_value) -> None:
 
 
 def test_raise_if_options_is_not_a_non_empty_list() -> None:
-    """Test function called by cookiecutter raise expected errors.
+    """Test function called by mlpstamps raise expected errors.
 
     Test for choice type invocation.
     """

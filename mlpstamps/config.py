@@ -10,14 +10,14 @@ from typing import TYPE_CHECKING, Any
 
 import yaml
 
-from cookiecutter.exceptions import ConfigDoesNotExistException, InvalidConfiguration
+from mlpstamps.exceptions import ConfigDoesNotExistException, InvalidConfiguration
 
 if TYPE_CHECKING:
     from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
-USER_CONFIG_PATH = os.path.expanduser('~/.cookiecutterrc')
+USER_CONFIG_PATH = os.path.expanduser('~/.mlpstampsrc')
 
 BUILTIN_ABBREVIATIONS = {
     'gh': 'https://github.com/{0}.git',
@@ -26,8 +26,8 @@ BUILTIN_ABBREVIATIONS = {
 }
 
 DEFAULT_CONFIG = {
-    'cookiecutters_dir': os.path.expanduser('~/.cookiecutters/'),
-    'replay_dir': os.path.expanduser('~/.cookiecutter_replay/'),
+    'mlpstampss_dir': os.path.expanduser('~/.mlpstampss/'),
+    'replay_dir': os.path.expanduser('~/.mlpstamps_replay/'),
     'default_context': collections.OrderedDict([]),
     'abbreviations': BUILTIN_ABBREVIATIONS,
 }
@@ -80,8 +80,8 @@ def get_config(config_path: Path | str) -> dict[str, Any]:
     raw_replay_dir = config_dict['replay_dir']
     config_dict['replay_dir'] = _expand_path(raw_replay_dir)
 
-    raw_cookies_dir = config_dict['cookiecutters_dir']
-    config_dict['cookiecutters_dir'] = _expand_path(raw_cookies_dir)
+    raw_cookies_dir = config_dict['mlpstampss_dir']
+    config_dict['mlpstampss_dir'] = _expand_path(raw_cookies_dir)
 
     return config_dict
 

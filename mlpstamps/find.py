@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from cookiecutter.exceptions import NonTemplatedInputDirException
+from mlpstamps.exceptions import NonTemplatedInputDirException
 
 if TYPE_CHECKING:
     from jinja2 import Environment
@@ -25,7 +25,7 @@ def find_template(repo_dir: Path | str, env: Environment) -> Path:
 
     for str_path in os.listdir(repo_dir):
         if (
-            'cookiecutter' in str_path
+            'mlpstamps' in str_path
             and env.variable_start_string in str_path
             and env.variable_end_string in str_path
         ):

@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from cookiecutter import generate, utils
+from mlpstamps import generate, utils
 
 
 @pytest.fixture
@@ -26,14 +26,14 @@ def test_generate_copy_without_render_extensions() -> None:
     # first run
     generate.generate_files(
         context={
-            'cookiecutter': {
+            'mlpstamps': {
                 'repo_name': 'test_copy_without_render',
                 'render_test': 'I have been rendered!',
                 '_copy_without_render': [
                     '*not-rendered',
                     'rendered/not_rendered.yml',
                     '*.txt',
-                    '{{cookiecutter.repo_name}}-rendered/README.md',
+                    '{{mlpstamps.repo_name}}-rendered/README.md',
                 ],
             }
         },
@@ -43,14 +43,14 @@ def test_generate_copy_without_render_extensions() -> None:
     # second run with override flag to True
     generate.generate_files(
         context={
-            'cookiecutter': {
+            'mlpstamps': {
                 'repo_name': 'test_copy_without_render',
                 'render_test': 'I have been rendered!',
                 '_copy_without_render': [
                     '*not-rendered',
                     'rendered/not_rendered.yml',
                     '*.txt',
-                    '{{cookiecutter.repo_name}}-rendered/README.md',
+                    '{{mlpstamps.repo_name}}-rendered/README.md',
                 ],
             }
         },
@@ -64,7 +64,7 @@ def test_generate_copy_without_render_extensions() -> None:
     assert 'test_copy_without_render-rendered' in dir_contents
 
     file_1 = Path('test_copy_without_render/README.txt').read_text()
-    assert '{{cookiecutter.render_test}}' in file_1
+    assert '{{mlpstamps.render_test}}' in file_1
 
     file_2 = Path('test_copy_without_render/README.rst').read_text()
     assert 'I have been rendered!' in file_2
@@ -72,7 +72,7 @@ def test_generate_copy_without_render_extensions() -> None:
     file_3 = Path(
         'test_copy_without_render/test_copy_without_render-rendered/README.txt'
     ).read_text()
-    assert '{{cookiecutter.render_test}}' in file_3
+    assert '{{mlpstamps.render_test}}' in file_3
 
     file_4 = Path(
         'test_copy_without_render/test_copy_without_render-rendered/README.rst'
@@ -84,12 +84,12 @@ def test_generate_copy_without_render_extensions() -> None:
         'test_copy_without_render-not-rendered/'
         'README.rst'
     ).read_text()
-    assert '{{cookiecutter.render_test}}' in file_5
+    assert '{{mlpstamps.render_test}}' in file_5
 
     file_6 = Path('test_copy_without_render/rendered/not_rendered.yml').read_text()
-    assert '{{cookiecutter.render_test}}' in file_6
+    assert '{{mlpstamps.render_test}}' in file_6
 
     file_7 = Path(
         'test_copy_without_render/' 'test_copy_without_render-rendered/' 'README.md'
     ).read_text()
-    assert '{{cookiecutter.render_test}}' in file_7
+    assert '{{mlpstamps.render_test}}' in file_7

@@ -1,6 +1,6 @@
-{{cookiecutter.project_slug}}
-{% for _ in cookiecutter.project_slug %}={% endfor %}
+{{mlpstamps.project_slug}}
+{% for _ in mlpstamps.project_slug %}={% endfor %}
 
-{{cookiecutter.foobar}}
+{{mlpstamps.foobar}}
 
-https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_slug}}
+https://github.com/{{mlpstamps.github_username}}/{{mlpstamps.project_slug}}

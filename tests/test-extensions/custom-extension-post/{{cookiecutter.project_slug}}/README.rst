@@ -1,1 +1,1 @@
-{% hello cookiecutter.name %}
+{% hello mlpstamps.name %}

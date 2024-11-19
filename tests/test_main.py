@@ -1,9 +1,9 @@
-"""Collection of tests around cookiecutter's replay feature."""
+"""Collection of tests around mlpstamps's replay feature."""
 
-from cookiecutter.main import cookiecutter
+from mlpstamps.main import mlpstamps
 
 
-def test_original_cookiecutter_options_preserved_in__cookiecutter(
+def test_original_mlpstamps_options_preserved_in__mlpstamps(
     monkeypatch,
     mocker,
     user_config_file,
@@ -11,20 +11,20 @@ def test_original_cookiecutter_options_preserved_in__cookiecutter(
     """Preserve original context options.
 
     Tests you can access the original context options via
-    `context['_cookiecutter']`.
+    `context['_mlpstamps']`.
     """
-    monkeypatch.chdir('tests/fake-repo-tmpl-_cookiecutter')
-    mock_generate_files = mocker.patch('cookiecutter.main.generate_files')
-    cookiecutter(
+    monkeypatch.chdir('tests/fake-repo-tmpl-_mlpstamps')
+    mock_generate_files = mocker.patch('mlpstamps.main.generate_files')
+    mlpstamps(
         '.',
         no_input=True,
         replay=False,
         config_file=user_config_file,
     )
-    assert mock_generate_files.call_args[1]['context']['_cookiecutter'][
+    assert mock_generate_files.call_args[1]['context']['_mlpstamps'][
         'test_list'
     ] == [1, 2, 3, 4]
-    assert mock_generate_files.call_args[1]['context']['_cookiecutter'][
+    assert mock_generate_files.call_args[1]['context']['_mlpstamps'][
         'test_dict'
     ] == {"foo": "bar"}
 
@@ -41,14 +41,14 @@ def test_replay_dump_template_name(
     '.' and '--replay'.
 
     Change the current working directory temporarily to 'tests/fake-repo-tmpl'
-    for this test and call cookiecutter with '.' for the target template.
+    for this test and call mlpstamps with '.' for the target template.
     """
     monkeypatch.chdir('tests/fake-repo-tmpl')
 
-    mock_replay_dump = mocker.patch('cookiecutter.main.dump')
-    mocker.patch('cookiecutter.main.generate_files')
+    mock_replay_dump = mocker.patch('mlpstamps.main.dump')
+    mocker.patch('mlpstamps.main.generate_files')
 
-    cookiecutter(
+    mlpstamps(
         '.',
         no_input=True,
         replay=False,
@@ -70,18 +70,18 @@ def test_replay_load_template_name(
     Calls require valid template_name that is not a relative path.
 
     Change the current working directory temporarily to 'tests/fake-repo-tmpl'
-    for this test and call cookiecutter with '.' for the target template.
+    for this test and call mlpstamps with '.' for the target template.
     """
     monkeypatch.chdir('tests/fake-repo-tmpl')
 
-    mock_replay_load = mocker.patch('cookiecutter.main.load')
-    mocker.patch('cookiecutter.main.generate_context').return_value = {
-        'cookiecutter': {}
+    mock_replay_load = mocker.patch('mlpstamps.main.load')
+    mocker.patch('mlpstamps.main.generate_context').return_value = {
+        'mlpstamps': {}
     }
-    mocker.patch('cookiecutter.main.generate_files')
-    mocker.patch('cookiecutter.main.dump')
+    mocker.patch('mlpstamps.main.generate_files')
+    mocker.patch('mlpstamps.main.dump')
 
-    cookiecutter(
+    mlpstamps(
         '.',
         replay=True,
         config_file=user_config_file,
@@ -97,14 +97,14 @@ def test_custom_replay_file(monkeypatch, mocker, user_config_file) -> None:
     """Check that reply.load is called with the custom replay_file."""
     monkeypatch.chdir('tests/fake-repo-tmpl')
 
-    mock_replay_load = mocker.patch('cookiecutter.main.load')
-    mocker.patch('cookiecutter.main.generate_context').return_value = {
-        'cookiecutter': {}
+    mock_replay_load = mocker.patch('mlpstamps.main.load')
+    mocker.patch('mlpstamps.main.generate_context').return_value = {
+        'mlpstamps': {}
     }
-    mocker.patch('cookiecutter.main.generate_files')
-    mocker.patch('cookiecutter.main.dump')
+    mocker.patch('mlpstamps.main.generate_files')
+    mocker.patch('mlpstamps.main.dump')
 
-    cookiecutter(
+    mlpstamps(
         '.',
         replay='./custom-replay-file',
         config_file=user_config_file,

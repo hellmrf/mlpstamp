@@ -22,17 +22,17 @@ LOG_FORMATS = {
 def configure_logger(
     stream_level: str = 'DEBUG', debug_file: str | None = None
 ) -> logging.Logger:
-    """Configure logging for cookiecutter.
+    """Configure logging for mlpstamps.
 
     Set up logging to stdout with given level. If ``debug_file`` is given set
     up logging to file with DEBUG level.
     """
-    # Set up 'cookiecutter' logger
-    logger = logging.getLogger('cookiecutter')
+    # Set up 'mlpstamps' logger
+    logger = logging.getLogger('mlpstamps')
     logger.setLevel(logging.DEBUG)
 
     # Remove all attached handlers, in case there was
-    # a logger with using the name 'cookiecutter'
+    # a logger with using the name 'mlpstamps'
     del logger.handlers[:]
 
     # Create a file handler if a log file is provided

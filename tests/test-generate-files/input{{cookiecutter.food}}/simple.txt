@@ -1,1 +1,1 @@
-I eat {{ cookiecutter.food }}
+I eat {{ mlpstamps.food }}
