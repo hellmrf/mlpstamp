@@ -52,6 +52,15 @@ wheels = [
 ]
 
 [[package]]
+name = "binaryornot-stubs"
+version = "0.0.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/9a/2b/e7a3d1877e757049e9518d7bc7b5f552f14d135a8615b16f176377951cba/binaryornot_stubs-0.0.3.tar.gz", hash = "sha256:f0fff09556376b6d427ac53665a0ac92111af2032faffb358e220c81fd86e822", size = 4062 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/3a/83/8043c7c17e9f6e3a13c0c925c90a2a29b1e0e60da279ed05e49071f1a151/binaryornot_stubs-0.0.3-py3-none-any.whl", hash = "sha256:69d31b6fb10694a4f14ac22831c3ec4dc87b4a51e679446893cec365c5fd33c3", size = 2978 },
+]
+
+[[package]]
 name = "cachetools"
 version = "5.5.0"
 source = { registry = "https://pypi.org/simple" }
@@ -555,6 +564,7 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "binaryornot-stubs" },
     { name = "coverage" },
     { name = "doc8" },
     { name = "mypy" },
@@ -587,6 +597,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "binaryornot-stubs", specifier = ">=0.0.3" },
     { name = "coverage", specifier = ">=7.6.7" },
     { name = "doc8", specifier = ">=1.1.2" },
     { name = "mypy", specifier = ">=1.13.0" },

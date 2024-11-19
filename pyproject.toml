@@ -61,6 +61,7 @@ package = true
 
 [dependency-groups]
 dev = [
+    "binaryornot-stubs>=0.0.3",
     "coverage>=7.6.7",
     "doc8>=1.1.2",
     "mypy>=1.13.0",
@@ -196,11 +197,6 @@ show_error_codes = true
 files = ["src/mlpstamps", "tests"]
 exclude = "(?x)(/hooks/ | tests/test-output-folder/)"
 no_implicit_reexport = true
-
-
-[[tool.mypy.overrides]]
-module = ["binaryornot.*"]
-ignore_missing_imports = true
 
 [[tool.mypy.overrides]]
 module = ["mlpstamps.prompt"]
