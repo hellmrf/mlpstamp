@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING
 
 from mlpstamps.exceptions import RepositoryNotFound
 from mlpstamps.vcs import clone
-from mlpstamps.zipfile import unzip
+from mlpstamps.filezip import unzip
 
 if TYPE_CHECKING:
     from pathlib import Path
