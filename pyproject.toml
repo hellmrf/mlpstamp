@@ -37,7 +37,6 @@ classifiers = [
     "Programming Language :: Python :: Implementation :: PyPy",
     "Programming Language :: Python",
     "Topic :: Software Development",
-    "Topic :: Machine Learning",
 ]
 keywords = [
     "cookiecutter",
@@ -53,8 +52,7 @@ keywords = [
 ]
 
 [project.scripts]
-# mlps = "mlpstamp:main"
-cookiecutter = "cookiecutter.__main__:main"
+mlps = "mlpstamps.__main__:main"
 
 [project.optional-dependencies]
 test = [
@@ -71,10 +69,10 @@ test = [
 dev = ["coverage>=7.6.7", "doc8>=1.1.2", "mypy>=1.13.0", "ruff>=0.7.4"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["cookiecutter"]
+packages = ["mlpstamps"]
 
 [tool.hatch.build.targets.sdist]
-include = ["cookiecutter", "tests", "*.md", "LICENSE"]
+include = ["mlpstamps", "tests", "*.md", "LICENSE"]
 exclude = ["Makefile", "setup.py", "__pycache__"]
 
 [tool.pytest.ini_options]
