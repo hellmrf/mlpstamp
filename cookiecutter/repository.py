@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING
 
 from cookiecutter.exceptions import RepositoryNotFound
 from cookiecutter.vcs import clone
-from cookiecutter.zipfile import unzip
+from cookiecutter.filezip import unzip
 
 if TYPE_CHECKING:
     from pathlib import Path
