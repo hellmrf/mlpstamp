@@ -4,7 +4,7 @@
 
 import sys
 
-{% if cookiecutter.abort_pre_gen == "yes" %}
+{% if mlpstamps.abort_pre_gen == "yes" %}
 sys.exit(5)
 {% else %}
 sys.exit(0)

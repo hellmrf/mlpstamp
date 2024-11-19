@@ -1,0 +1,2 @@
+---
+- name: {{mlpstamps.render_test}}

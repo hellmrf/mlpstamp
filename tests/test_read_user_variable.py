@@ -2,7 +2,7 @@
 
 import pytest
 
-from cookiecutter.prompt import read_user_variable
+from mlpstamps.prompt import read_user_variable
 
 VARIABLE = 'project_name'
 DEFAULT = 'Kivy Project'
@@ -15,7 +15,7 @@ def mock_prompt(mocker):
 
 
 def test_click_invocation(mock_prompt) -> None:
-    """Test click function called correctly by cookiecutter.
+    """Test click function called correctly by mlpstamps.
 
     Test for string type invocation.
     """

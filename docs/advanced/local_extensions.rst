@@ -3,12 +3,12 @@
 Local Extensions
 ----------------
 
-*New in Cookiecutter 2.1*
+*New in mlpstamps 2.1*
 
-A template may extend the Cookiecutter environment with local extensions.
+A template may extend the mlpstamps environment with local extensions.
 These can be part of the template itself, providing it with more sophisticated custom tags and filters.
 
-To do so, a template author must specify the required extensions in ``cookiecutter.json`` as follows:
+To do so, a template author must specify the required extensions in ``mlpstamps.json`` as follows:
 
 .. code-block:: json
 
@@ -45,7 +45,7 @@ It's likely that we'd only want to register a single function as a filter. For t
 
 .. code-block:: python
 
-    from cookiecutter.utils import simple_filter
+    from mlpstamps.utils import simple_filter
 
 
     @simple_filter

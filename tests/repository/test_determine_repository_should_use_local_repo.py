@@ -1,10 +1,10 @@
-"""Tests around using locally cached cookiecutter template repositories."""
+"""Tests around using locally cached mlpstamps template repositories."""
 
 from pathlib import Path
 
 import pytest
 
-from cookiecutter import exceptions, repository
+from mlpstamps import exceptions, repository
 
 
 def test_finds_local_repo(tmp_path) -> None:
@@ -22,7 +22,7 @@ def test_finds_local_repo(tmp_path) -> None:
 
 
 def test_local_repo_with_no_context_raises(tmp_path) -> None:
-    """A local repository without a cookiecutter.json should raise a \
+    """A local repository without a mlpstamps.json should raise a \
     `RepositoryNotFound` exception."""
     template_path = str(Path('tests', 'fake-repo-bad'))
     with pytest.raises(exceptions.RepositoryNotFound) as err:

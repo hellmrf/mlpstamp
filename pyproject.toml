@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "cookiecutter"
+name = "mlpstamps"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -20,10 +20,39 @@ dependencies = [
     "rich>=13.9.4",
 ]
 license.file = "LICENSE"
+classifiers = [
+    # "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Programming Language :: Python",
+    "Topic :: Software Development",
+]
+keywords = [
+    "cookiecutter",
+    "Python",
+    "projects",
+    "project templates",
+    "Jinja2",
+    "skeleton",
+    "scaffolding",
+    "project directory",
+    "package",
+    "packaging",
+]
 
 [project.scripts]
-# mlps = "mlpstamp:main"
-cookiecutter = "cookiecutter.__main__:main"
+mlps = "mlpstamps.__main__:main"
 
 [project.optional-dependencies]
 test = [
@@ -40,15 +69,15 @@ test = [
 dev = ["coverage>=7.6.7", "doc8>=1.1.2", "mypy>=1.13.0", "ruff>=0.7.4"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["cookiecutter"]
+packages = ["mlpstamps"]
 
 [tool.hatch.build.targets.sdist]
-include = ["cookiecutter", "tests", "*.md", "LICENSE"]
+include = ["mlpstamps", "tests", "*.md", "LICENSE"]
 exclude = ["Makefile", "setup.py", "__pycache__"]
 
 [tool.pytest.ini_options]
 testpaths = "tests"
-addopts = "-vvv --cov-report term-missing --cov=cookiecutter"
+addopts = "-vvv --cov-report term-missing --cov=mlpstamps"
 
 [tool.doc8]
 # TODO: Remove current max-line-length ignore in follow-up and adopt black limit.
@@ -138,7 +167,7 @@ exclude = ["tests/**/hooks/*"]
     "S106", # Possible hardcoded password assigned to argument: "password"
     "S108", # Probable insecure usage of temporary file or directory: "/tmp"
 ]
-"cookiecutter/*" = [
+"mlpstamps/*" = [
     "S603", # `subprocess` call: check for execution of untrusted input"
 ]
 "docs/conf.py" = ["A001", "D100"]
@@ -152,13 +181,13 @@ exclude = ["tests/hooks-abort-render/hooks/*"]
 [tool.mypy]
 strict = true
 show_error_codes = true
-files = ["cookiecutter", "tests"]
+files = ["mlpstamps", "tests"]
 exclude = "(?x)(/hooks/ | tests/test-output-folder/)"
 no_implicit_reexport = true
 
 
 [[tool.mypy.overrides]]
-module = ["cookiecutter.prompt"]
+module = ["mlpstamps.prompt"]
 ignore_errors = true
 
 [[tool.mypy.overrides]]
@@ -169,4 +198,4 @@ disable_error_code = ["no-untyped-def"]
 exclude_also = ["if TYPE_CHECKING:"]
 
 [tool.coverage.run]
-omit = ["cookiecutter/__main__.py"]
+omit = ["mlpstamps/__main__.py"]

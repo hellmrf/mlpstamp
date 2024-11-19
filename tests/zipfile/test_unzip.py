@@ -9,8 +9,8 @@ from typing import Iterator
 
 import pytest
 
-from cookiecutter import filezip
-from cookiecutter.exceptions import InvalidZipRepository
+from mlpstamps import filezip
+from mlpstamps.exceptions import InvalidZipRepository
 
 
 def mock_download() -> Iterator[bytes]:
@@ -35,7 +35,7 @@ def mock_download_with_empty_chunks() -> Iterator[None | bytes]:
 def test_unzip_local_file(mocker, clone_dir) -> None:
     """Local file reference can be unzipped."""
     mock_prompt_and_delete = mocker.patch(
-        'cookiecutter.filezip.prompt_and_delete', return_value=True, autospec=True
+        'mlpstamps.filezip.prompt_and_delete', return_value=True, autospec=True
     )
 
     output_dir = filezip.unzip(
@@ -49,7 +49,7 @@ def test_unzip_local_file(mocker, clone_dir) -> None:
 def test_unzip_protected_local_file_environment_password(mocker, clone_dir) -> None:
     """In `unzip()`, the environment can be used to provide a repo password."""
     mock_prompt_and_delete = mocker.patch(
-        'cookiecutter.filezip.prompt_and_delete', return_value=True, autospec=True
+        'mlpstamps.filezip.prompt_and_delete', return_value=True, autospec=True
     )
 
     output_dir = filezip.unzip(
@@ -66,7 +66,7 @@ def test_unzip_protected_local_file_environment_password(mocker, clone_dir) -> N
 def test_unzip_protected_local_file_bad_environment_password(mocker, clone_dir) -> None:
     """In `unzip()`, an error occurs if the environment has a bad password."""
     mocker.patch(
-        'cookiecutter.filezip.prompt_and_delete', return_value=True, autospec=True
+        'mlpstamps.filezip.prompt_and_delete', return_value=True, autospec=True
     )
 
     with pytest.raises(InvalidZipRepository):
@@ -83,7 +83,7 @@ def test_unzip_protected_local_file_user_password_with_noinput(
 ) -> None:
     """Can't unpack a password-protected repo in no_input mode."""
     mocker.patch(
-        'cookiecutter.filezip.prompt_and_delete', return_value=True, autospec=True
+        'mlpstamps.filezip.prompt_and_delete', return_value=True, autospec=True
     )
 
     with pytest.raises(InvalidZipRepository):
@@ -98,9 +98,9 @@ def test_unzip_protected_local_file_user_password_with_noinput(
 def test_unzip_protected_local_file_user_password(mocker, clone_dir) -> None:
     """A password-protected local file reference can be unzipped."""
     mock_prompt_and_delete = mocker.patch(
-        'cookiecutter.filezip.prompt_and_delete', return_value=True, autospec=True
+        'mlpstamps.filezip.prompt_and_delete', return_value=True, autospec=True
     )
-    mocker.patch('cookiecutter.filezip.read_repo_password', return_value='sekrit')
+    mocker.patch('mlpstamps.filezip.read_repo_password', return_value='sekrit')
 
     output_dir = filezip.unzip(
         'tests/files/protected-fake-repo-tmpl.zip',
@@ -115,10 +115,10 @@ def test_unzip_protected_local_file_user_password(mocker, clone_dir) -> None:
 def test_unzip_protected_local_file_user_bad_password(mocker, clone_dir) -> None:
     """Error in `unzip()`, if user can't provide a valid password."""
     mocker.patch(
-        'cookiecutter.filezip.prompt_and_delete', return_value=True, autospec=True
+        'mlpstamps.filezip.prompt_and_delete', return_value=True, autospec=True
     )
     mocker.patch(
-        'cookiecutter.filezip.read_repo_password', return_value='not-the-right-password'
+        'mlpstamps.filezip.read_repo_password', return_value='not-the-right-password'
     )
 
     with pytest.raises(InvalidZipRepository):
@@ -132,7 +132,7 @@ def test_unzip_protected_local_file_user_bad_password(mocker, clone_dir) -> None
 def test_empty_zip_file(mocker, clone_dir) -> None:
     """In `unzip()`, an empty file raises an error."""
     mocker.patch(
-        'cookiecutter.filezip.prompt_and_delete', return_value=True, autospec=True
+        'mlpstamps.filezip.prompt_and_delete', return_value=True, autospec=True
     )
 
     with pytest.raises(InvalidZipRepository):
@@ -144,7 +144,7 @@ def test_empty_zip_file(mocker, clone_dir) -> None:
 def test_non_repo_zip_file(mocker, clone_dir) -> None:
     """In `unzip()`, a repository must have a top level directory."""
     mocker.patch(
-        'cookiecutter.filezip.prompt_and_delete', return_value=True, autospec=True
+        'mlpstamps.filezip.prompt_and_delete', return_value=True, autospec=True
     )
 
     with pytest.raises(InvalidZipRepository):
@@ -156,7 +156,7 @@ def test_non_repo_zip_file(mocker, clone_dir) -> None:
 def test_bad_zip_file(mocker, clone_dir) -> None:
     """In `unzip()`, a corrupted zip file raises an error."""
     mocker.patch(
-        'cookiecutter.filezip.prompt_and_delete', return_value=True, autospec=True
+        'mlpstamps.filezip.prompt_and_delete', return_value=True, autospec=True
     )
 
     with pytest.raises(InvalidZipRepository):
@@ -168,14 +168,14 @@ def test_bad_zip_file(mocker, clone_dir) -> None:
 def test_unzip_url(mocker, clone_dir) -> None:
     """In `unzip()`, a url will be downloaded and unzipped."""
     mock_prompt_and_delete = mocker.patch(
-        'cookiecutter.filezip.prompt_and_delete', return_value=True, autospec=True
+        'mlpstamps.filezip.prompt_and_delete', return_value=True, autospec=True
     )
 
     request = mocker.MagicMock()
     request.iter_content.return_value = mock_download()
 
     mocker.patch(
-        'cookiecutter.filezip.requests.get',
+        'mlpstamps.filezip.requests.get',
         return_value=request,
         autospec=True,
     )
@@ -193,14 +193,14 @@ def test_unzip_url(mocker, clone_dir) -> None:
 def test_unzip_url_with_empty_chunks(mocker, clone_dir) -> None:
     """In `unzip()` empty chunk must be ignored."""
     mock_prompt_and_delete = mocker.patch(
-        'cookiecutter.filezip.prompt_and_delete', return_value=True, autospec=True
+        'mlpstamps.filezip.prompt_and_delete', return_value=True, autospec=True
     )
 
     request = mocker.MagicMock()
     request.iter_content.return_value = mock_download_with_empty_chunks()
 
     mocker.patch(
-        'cookiecutter.filezip.requests.get',
+        'mlpstamps.filezip.requests.get',
         return_value=request,
         autospec=True,
     )
@@ -218,14 +218,14 @@ def test_unzip_url_with_empty_chunks(mocker, clone_dir) -> None:
 def test_unzip_url_existing_cache(mocker, clone_dir) -> None:
     """Url should be downloaded and unzipped, old zip file will be removed."""
     mock_prompt_and_delete = mocker.patch(
-        'cookiecutter.filezip.prompt_and_delete', return_value=True, autospec=True
+        'mlpstamps.filezip.prompt_and_delete', return_value=True, autospec=True
     )
 
     request = mocker.MagicMock()
     request.iter_content.return_value = mock_download()
 
     mocker.patch(
-        'cookiecutter.filezip.requests.get',
+        'mlpstamps.filezip.requests.get',
         return_value=request,
         autospec=True,
     )
@@ -250,7 +250,7 @@ def test_unzip_url_existing_cache_no_input(mocker, clone_dir) -> None:
     request.iter_content.return_value = mock_download()
 
     mocker.patch(
-        'cookiecutter.filezip.requests.get',
+        'mlpstamps.filezip.requests.get',
         return_value=request,
         autospec=True,
     )
@@ -272,11 +272,11 @@ def test_unzip_url_existing_cache_no_input(mocker, clone_dir) -> None:
 def test_unzip_should_abort_if_no_redownload(mocker, clone_dir) -> None:
     """Should exit without cloning anything If no redownload."""
     mocker.patch(
-        'cookiecutter.filezip.prompt_and_delete', side_effect=SystemExit, autospec=True
+        'mlpstamps.filezip.prompt_and_delete', side_effect=SystemExit, autospec=True
     )
 
     mock_requests_get = mocker.patch(
-        'cookiecutter.filezip.requests.get',
+        'mlpstamps.filezip.requests.get',
         autospec=True,
     )
 
@@ -295,7 +295,7 @@ def test_unzip_should_abort_if_no_redownload(mocker, clone_dir) -> None:
 def test_unzip_is_ok_to_reuse(mocker, clone_dir) -> None:
     """Already downloaded zip should not be downloaded again."""
     mock_prompt_and_delete = mocker.patch(
-        'cookiecutter.filezip.prompt_and_delete', return_value=False, autospec=True
+        'mlpstamps.filezip.prompt_and_delete', return_value=False, autospec=True
     )
 
     request = mocker.MagicMock()

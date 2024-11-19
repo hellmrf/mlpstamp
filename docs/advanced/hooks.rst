@@ -1,7 +1,7 @@
 Hooks
 =====
 
-Cookiecutter hooks are scripts executed at specific stages during the project generation process. They are either Python or shell scripts, facilitating automated tasks like data validation, pre-processing, and post-processing. These hooks are instrumental in customizing the generated project structure and executing initial setup tasks.
+mlpstamps hooks are scripts executed at specific stages during the project generation process. They are either Python or shell scripts, facilitating automated tasks like data validation, pre-processing, and post-processing. These hooks are instrumental in customizing the generated project structure and executing initial setup tasks.
 
 Types of Hooks
 --------------
@@ -25,25 +25,25 @@ Hooks are added to the ``hooks/`` folder of your template. Both Python and Shell
 
 .. code-block::
 
-    cookiecutter-something/
-    ├── {{cookiecutter.project_slug}}/
+    mlpstamps-something/
+    ├── {{mlpstamps.project_slug}}/
     ├── hooks
     │   ├── pre_prompt.py
     │   ├── pre_gen_project.py
     │   └── post_gen_project.py
-    └── cookiecutter.json
+    └── mlpstamps.json
 
 **Shell Scripts Structure:**
 
 .. code-block::
 
-    cookiecutter-something/
-    ├── {{cookiecutter.project_slug}}/
+    mlpstamps-something/
+    ├── {{mlpstamps.project_slug}}/
     ├── hooks
     │   ├── pre_prompt.sh
     │   ├── pre_gen_project.sh
     │   └── post_gen_project.sh
-    └── cookiecutter.json
+    └── mlpstamps.json
 
 Python scripts are recommended for cross-platform compatibility. However, shell scripts or `.bat` files can be used for platform-specific templates.
 
@@ -54,7 +54,7 @@ Hooks should be robust and handle errors gracefully. If a hook exits with a nonz
 
 **Working Directory:**
 
-* ``pre_prompt``: Scripts run in the root directory of a copy of the repository directory. That allows the rewrite of ``cookiecutter.json`` to your own needs.
+* ``pre_prompt``: Scripts run in the root directory of a copy of the repository directory. That allows the rewrite of ``mlpstamps.json`` to your own needs.
 
 * ``pre_gen_project`` and ``post_gen_project``: Scripts run in the root directory of the generated project, simplifying the process of locating generated files using relative paths.
 
@@ -64,7 +64,7 @@ The ``pre_gen_project`` and ``post_gen_project`` hooks support Jinja template re
 
 .. code-block:: python
 
-    module_name = '{{ cookiecutter.module_name }}'
+    module_name = '{{ mlpstamps.module_name }}'
 
 Examples
 --------
@@ -100,7 +100,7 @@ A ``pre_gen_project`` hook can validate template variables. The following script
     import sys
 
     MODULE_REGEX = r'^[_a-zA-Z][_a-zA-Z0-9]+$'
-    module_name = '{{ cookiecutter.module_name }}'
+    module_name = '{{ mlpstamps.module_name }}'
 
     if not re.match(MODULE_REGEX, module_name):
         print(f'ERROR: {module_name} is not a valid Python module name!')
@@ -115,8 +115,8 @@ A ``post_gen_project`` hook can conditionally control files and directories. The
     import os
 
     REMOVE_PATHS = [
-        '{% if cookiecutter.packaging != "pip" %}requirements.txt{% endif %}',
-        '{% if cookiecutter.packaging != "poetry" %}poetry.lock{% endif %}',
+        '{% if mlpstamps.packaging != "pip" %}requirements.txt{% endif %}',
+        '{% if mlpstamps.packaging != "poetry" %}poetry.lock{% endif %}',
     ]
 
     for path in REMOVE_PATHS:

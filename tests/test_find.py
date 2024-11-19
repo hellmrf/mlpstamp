@@ -1,13 +1,13 @@
-"""Tests for `cookiecutter.find` module."""
+"""Tests for `mlpstamps.find` module."""
 
 from contextlib import nullcontext as does_not_raise
 from pathlib import Path
 
 import pytest
 
-from cookiecutter import find
-from cookiecutter.exceptions import NonTemplatedInputDirException
-from cookiecutter.utils import create_env_with_context
+from mlpstamps import find
+from mlpstamps.exceptions import NonTemplatedInputDirException
+from mlpstamps.utils import create_env_with_context
 
 
 @pytest.fixture(params=['fake-repo-pre', 'fake-repo-pre2'])
@@ -25,11 +25,11 @@ def env(context):
 @pytest.mark.parametrize(
     "repo_name,context,error_expectation,expected",
     [
-        ("fake-repo-pre", {}, does_not_raise(), '{{cookiecutter.repo_name}}'),
+        ("fake-repo-pre", {}, does_not_raise(), '{{mlpstamps.repo_name}}'),
         (
             "fake-repo-pre2",
             {
-                'cookiecutter': {
+                'mlpstamps': {
                     '_jinja2_env_vars': {
                         'variable_start_string': '{%{',
                         'variable_end_string': '}%}',
@@ -37,12 +37,12 @@ def env(context):
                 }
             },
             does_not_raise(),
-            '{%{cookiecutter.repo_name}%}',
+            '{%{mlpstamps.repo_name}%}',
         ),
         (
             "fake-repo-pre",
             {
-                'cookiecutter': {
+                'mlpstamps': {
                     '_jinja2_env_vars': {
                         'variable_start_string': '{%{',
                         'variable_end_string': '}%}',

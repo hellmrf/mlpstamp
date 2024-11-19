@@ -1,0 +1,5 @@
+{% if mlpstamps %}
+    {% if mlpstamps.food %}
+I eat {{ mlpstamps.food }}
+    {% endif %}
+{% endif %}

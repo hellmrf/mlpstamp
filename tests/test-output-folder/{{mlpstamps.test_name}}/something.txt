@@ -1,0 +1,3 @@
+Hi!
+My name is {{ mlpstamps.full_name }}.
+It is {{ mlpstamps.year }}.

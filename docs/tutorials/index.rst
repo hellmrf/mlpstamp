@@ -14,21 +14,21 @@ Tutorials by `@audreyfeldroy`_
 External Links
 --------------
 
-- `Learn the Basics of Cookiecutter by Creating a Cookiecutter`_ - first steps tutorial with example template by `@BruceEckel`_
+- `Learn the Basics of mlpstamps by Creating a mlpstamps`_ - first steps tutorial with example template by `@BruceEckel`_
 - `Project Templates Made Easy`_ by `@pydanny`_
 - Cookiedozer Tutorials by `@hackebrot`_
 
-  - Part 1: `Create your own Cookiecutter template`_
-  - Part 2: `Extending our Cookiecutter template`_
-  - Part 3: `Wrapping up our Cookiecutter template`_
+  - Part 1: `Create your own mlpstamps template`_
+  - Part 2: `Extending our mlpstamps template`_
+  - Part 3: `Wrapping up our mlpstamps template`_
 
 
-.. _`Learn the Basics of Cookiecutter by Creating a Cookiecutter`: https://github.com/BruceEckel/HelloCookieCutter1/blob/master/Readme.rst
+.. _`Learn the Basics of mlpstamps by Creating a mlpstamps`: https://github.com/BruceEckel/Hellomlpstamps1/blob/master/Readme.rst
 .. _`Project Templates Made Easy`: http://www.pydanny.com/cookie-project-templates-made-easy.html
 
-.. _`Create your own Cookiecutter template`: https://raphael.codes/blog/create-your-own-cookiecutter-template/
-.. _`Extending our Cookiecutter template`: https://raphael.codes/blog/extending-our-cookiecutter-template/
-.. _`Wrapping up our Cookiecutter template`: https://raphael.codes/blog/wrapping-up-our-cookiecutter-template/
+.. _`Create your own mlpstamps template`: https://raphael.codes/blog/create-your-own-mlpstamps-template/
+.. _`Extending our mlpstamps template`: https://raphael.codes/blog/extending-our-mlpstamps-template/
+.. _`Wrapping up our mlpstamps template`: https://raphael.codes/blog/wrapping-up-our-mlpstamps-template/
 
 .. _`@audreyfeldroy`: https://github.com/audreyfeldroy
 .. _`@pydanny`: https://github.com/pydanny

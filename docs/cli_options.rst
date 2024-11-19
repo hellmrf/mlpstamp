@@ -3,5 +3,5 @@
 Command Line Options
 --------------------
 
-.. click:: cookiecutter.__main__:main
-  :prog: cookiecutter
+.. click:: mlpstamps.__main__:main
+  :prog: mlpstamps

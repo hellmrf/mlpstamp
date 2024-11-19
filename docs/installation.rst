@@ -47,7 +47,7 @@ Remember to load changes with ``source ~/.bash_profile`` or open a new shell ses
 Windows
 """""""
 
-Ensure the directory where cookiecutter will be installed is in your environment's ``Path`` in order to make it possible to invoke it from a command prompt. To do so, search for "Environment Variables" on your computer (on Windows 10, it is under ``System Properties`` --> ``Advanced``) and add that directory to the ``Path`` environment variable, using the GUI to edit path segments.
+Ensure the directory where mlpstamps will be installed is in your environment's ``Path`` in order to make it possible to invoke it from a command prompt. To do so, search for "Environment Variables" on your computer (on Windows 10, it is under ``System Properties`` --> ``Advanced``) and add that directory to the ``Path`` environment variable, using the GUI to edit path segments.
 
 Example segments should look like ``%APPDATA%\Python\Python3x\Scripts``, where you have your version of Python instead of ``Python3x``.
 
@@ -66,20 +66,20 @@ Packaging tools
 See the Python Packaging Authority's (PyPA) documentation `Requirements for Installing Packages <https://packaging.python.org/en/latest/installing/#requirements-for-installing-packages>`_ for full details.
 
 
-Install cookiecutter
+Install mlpstamps
 --------------------
 
 At the command line:
 
 .. code-block:: bash
 
-    python3 -m pip install --user cookiecutter
+    python3 -m pip install --user mlpstamps
 
 Or, if you do not have pip:
 
 .. code-block:: bash
 
-    easy_install --user cookiecutter
+    easy_install --user mlpstamps
 
 Though, pip is recommended, easy_install is deprecated.
 
@@ -89,11 +89,11 @@ Or, if you are using conda, first add conda-forge to your channels:
 
     conda config --add channels conda-forge
 
-Once the conda-forge channel has been enabled, cookiecutter can be installed with:
+Once the conda-forge channel has been enabled, mlpstamps can be installed with:
 
 .. code-block:: bash
 
-    conda install cookiecutter
+    conda install mlpstamps
 
 Alternate installations
 -----------------------
@@ -102,19 +102,19 @@ Alternate installations
 
 .. code-block:: bash
 
-    brew install cookiecutter
+    brew install mlpstamps
 
 **Void Linux:**
 
 .. code-block:: bash
 
-    xbps-install cookiecutter
+    xbps-install mlpstamps
 
 **Pipx (Linux, OSX and Windows):**
 
 .. code-block:: bash
 
-    pipx install cookiecutter
+    pipx install mlpstamps
 
 
 Upgrading
@@ -127,21 +127,21 @@ First, read :doc:`HISTORY` in detail.
 There are a lot of major changes.
 The big ones are:
 
-* Cookiecutter no longer deletes the cloned repo after generating a project.
-* Cloned repos are saved into `~/.cookiecutters/`.
-* You can optionally create a `~/.cookiecutterrc` config file.
+* mlpstamps no longer deletes the cloned repo after generating a project.
+* Cloned repos are saved into `~/.mlpstampss/`.
+* You can optionally create a `~/.mlpstampsrc` config file.
 
 
 Or with pip:
 
 .. code-block:: bash
 
-    python3 -m pip install --upgrade cookiecutter
+    python3 -m pip install --upgrade mlpstamps
 
-Upgrade Cookiecutter either with easy_install (deprecated):
+Upgrade mlpstamps either with easy_install (deprecated):
 
 .. code-block:: bash
 
-    easy_install --upgrade cookiecutter
+    easy_install --upgrade mlpstamps
 
 Then you should be good to go.

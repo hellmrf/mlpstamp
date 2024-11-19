@@ -7,11 +7,11 @@ from pathlib import Path
 import pytest
 from typing_extensions import TypedDict
 
-from cookiecutter import utils
-from cookiecutter.config import DEFAULT_CONFIG
+from mlpstamps import utils
+from mlpstamps.config import DEFAULT_CONFIG
 
 USER_CONFIG = """
-cookiecutters_dir: '{cookiecutters_dir}'
+mlpstampss_dir: '{mlpstampss_dir}'
 replay_dir: '{replay_dir}'
 """
 
@@ -21,9 +21,9 @@ def isolated_filesystem(monkeypatch, tmp_path) -> None:
     """Ensure filesystem isolation, set the user home to a tmp_path."""
     root_path = tmp_path.joinpath("home")
     root_path.mkdir()
-    cookiecutters_dir = root_path.joinpath(".cookiecutters/")
-    replay_dir = root_path.joinpath(".cookiecutter_replay/")
-    monkeypatch.setitem(DEFAULT_CONFIG, 'cookiecutters_dir', str(cookiecutters_dir))
+    mlpstampss_dir = root_path.joinpath(".mlpstampss/")
+    replay_dir = root_path.joinpath(".mlpstamps_replay/")
+    monkeypatch.setitem(DEFAULT_CONFIG, 'mlpstampss_dir', str(mlpstampss_dir))
     monkeypatch.setitem(DEFAULT_CONFIG, 'replay_dir', str(replay_dir))
 
     monkeypatch.setenv("HOME", str(root_path))
@@ -66,41 +66,41 @@ def restore_backup_dir(original_dir, backup_dir, original_dir_found) -> None:
 
 @pytest.fixture(scope='function')
 def clean_system(request) -> None:
-    """Fixture. Simulates a clean system with no configured or cloned cookiecutters.
+    """Fixture. Simulates a clean system with no configured or cloned mlpstampss.
 
     It runs code which can be regarded as setup code as known from a unittest
     TestCase. Additionally it defines a local function referring to values
     which have been stored to local variables in the setup such as the location
-    of the cookiecutters on disk. This function is registered as a teardown
+    of the mlpstampss on disk. This function is registered as a teardown
     hook with `request.addfinalizer` at the very end of the fixture. Pytest
     runs the named hook as soon as the fixture is out of scope, when the test
     finished to put it another way.
 
     During setup:
 
-    * Back up the `~/.cookiecutterrc` config file to `~/.cookiecutterrc.backup`
-    * Back up the `~/.cookiecutters/` dir to `~/.cookiecutters.backup/`
-    * Back up the `~/.cookiecutter_replay/` dir to
-      `~/.cookiecutter_replay.backup/`
-    * Starts off a test case with no pre-existing `~/.cookiecutterrc` or
-      `~/.cookiecutters/` or `~/.cookiecutter_replay/`
+    * Back up the `~/.mlpstampsrc` config file to `~/.mlpstampsrc.backup`
+    * Back up the `~/.mlpstampss/` dir to `~/.mlpstampss.backup/`
+    * Back up the `~/.mlpstamps_replay/` dir to
+      `~/.mlpstamps_replay.backup/`
+    * Starts off a test case with no pre-existing `~/.mlpstampsrc` or
+      `~/.mlpstampss/` or `~/.mlpstamps_replay/`
 
     During teardown:
 
-    * Delete `~/.cookiecutters/` only if a backup is present at
-      `~/.cookiecutters.backup/`
-    * Delete `~/.cookiecutter_replay/` only if a backup is present at
-      `~/.cookiecutter_replay.backup/`
-    * Restore the `~/.cookiecutterrc` config file from
-      `~/.cookiecutterrc.backup`
-    * Restore the `~/.cookiecutters/` dir from `~/.cookiecutters.backup/`
-    * Restore the `~/.cookiecutter_replay/` dir from
-      `~/.cookiecutter_replay.backup/`
+    * Delete `~/.mlpstampss/` only if a backup is present at
+      `~/.mlpstampss.backup/`
+    * Delete `~/.mlpstamps_replay/` only if a backup is present at
+      `~/.mlpstamps_replay.backup/`
+    * Restore the `~/.mlpstampsrc` config file from
+      `~/.mlpstampsrc.backup`
+    * Restore the `~/.mlpstampss/` dir from `~/.mlpstampss.backup/`
+    * Restore the `~/.mlpstamps_replay/` dir from
+      `~/.mlpstamps_replay.backup/`
 
     """
-    # If ~/.cookiecutterrc is pre-existing, move it to a temp location
-    user_config_path = os.path.expanduser('~/.cookiecutterrc')
-    user_config_path_backup = os.path.expanduser('~/.cookiecutterrc.backup')
+    # If ~/.mlpstampsrc is pre-existing, move it to a temp location
+    user_config_path = os.path.expanduser('~/.mlpstampsrc')
+    user_config_path_backup = os.path.expanduser('~/.mlpstampsrc.backup')
     if os.path.exists(user_config_path):
         user_config_found = True
         shutil.copy(user_config_path, user_config_path_backup)
@@ -108,39 +108,39 @@ def clean_system(request) -> None:
     else:
         user_config_found = False
 
-    # If the default cookiecutters_dir is pre-existing, move it to a
+    # If the default mlpstampss_dir is pre-existing, move it to a
     # temp location
-    cookiecutters_dir = os.path.expanduser('~/.cookiecutters')
-    cookiecutters_dir_backup = os.path.expanduser('~/.cookiecutters.backup')
-    cookiecutters_dir_found = backup_dir(cookiecutters_dir, cookiecutters_dir_backup)
+    mlpstampss_dir = os.path.expanduser('~/.mlpstampss')
+    mlpstampss_dir_backup = os.path.expanduser('~/.mlpstampss.backup')
+    mlpstampss_dir_found = backup_dir(mlpstampss_dir, mlpstampss_dir_backup)
 
-    # If the default cookiecutter_replay_dir is pre-existing, move it to a
+    # If the default mlpstamps_replay_dir is pre-existing, move it to a
     # temp location
-    cookiecutter_replay_dir = os.path.expanduser('~/.cookiecutter_replay')
-    cookiecutter_replay_dir_backup = os.path.expanduser('~/.cookiecutter_replay.backup')
-    cookiecutter_replay_dir_found = backup_dir(
-        cookiecutter_replay_dir, cookiecutter_replay_dir_backup
+    mlpstamps_replay_dir = os.path.expanduser('~/.mlpstamps_replay')
+    mlpstamps_replay_dir_backup = os.path.expanduser('~/.mlpstamps_replay.backup')
+    mlpstamps_replay_dir_found = backup_dir(
+        mlpstamps_replay_dir, mlpstamps_replay_dir_backup
     )
 
     def restore_backup() -> None:
-        # If it existed, restore ~/.cookiecutterrc
-        # We never write to ~/.cookiecutterrc, so this logic is simpler.
+        # If it existed, restore ~/.mlpstampsrc
+        # We never write to ~/.mlpstampsrc, so this logic is simpler.
         if user_config_found and os.path.exists(user_config_path_backup):
             shutil.copy(user_config_path_backup, user_config_path)
             os.remove(user_config_path_backup)
 
-        # Carefully delete the created ~/.cookiecutters dir only in certain
+        # Carefully delete the created ~/.mlpstampss dir only in certain
         # conditions.
         restore_backup_dir(
-            cookiecutters_dir, cookiecutters_dir_backup, cookiecutters_dir_found
+            mlpstampss_dir, mlpstampss_dir_backup, mlpstampss_dir_found
         )
 
-        # Carefully delete the created ~/.cookiecutter_replay dir only in
+        # Carefully delete the created ~/.mlpstamps_replay dir only in
         # certain conditions.
         restore_backup_dir(
-            cookiecutter_replay_dir,
-            cookiecutter_replay_dir_backup,
-            cookiecutter_replay_dir_found,
+            mlpstamps_replay_dir,
+            mlpstamps_replay_dir_backup,
+            mlpstamps_replay_dir_found,
         )
 
     request.addfinalizer(restore_backup)
@@ -153,7 +153,7 @@ def user_dir(tmp_path_factory):
 
 
 class UserConfigData(TypedDict):
-    cookiecutters_dir: str
+    mlpstampss_dir: str
     replay_dir: str
 
 
@@ -163,17 +163,17 @@ def user_config_data(user_dir) -> UserConfigData:
 
      It will create it in the user's home directory.
 
-    * `cookiecutters_dir`
-    * `cookiecutter_replay`
+    * `mlpstampss_dir`
+    * `mlpstamps_replay`
 
     :returns: Dict with name of both user config dirs
     """
-    cookiecutters_dir = user_dir.joinpath('cookiecutters')
-    cookiecutters_dir.mkdir()
-    replay_dir = user_dir.joinpath('cookiecutter_replay')
+    mlpstampss_dir = user_dir.joinpath('mlpstampss')
+    mlpstampss_dir.mkdir()
+    replay_dir = user_dir.joinpath('mlpstamps_replay')
     replay_dir.mkdir()
     return {
-        'cookiecutters_dir': str(cookiecutters_dir),
+        'mlpstampss_dir': str(mlpstampss_dir),
         'replay_dir': str(replay_dir),
     }
 

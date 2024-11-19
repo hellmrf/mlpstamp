@@ -1,0 +1,1 @@
+Testing that generate_file was {{ mlpstamps.generate_file }}

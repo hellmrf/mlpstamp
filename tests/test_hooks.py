@@ -1,4 +1,4 @@
-"""Tests for `cookiecutter.hooks` module."""
+"""Tests for `mlpstamps.hooks` module."""
 
 import errno
 import os
@@ -9,7 +9,7 @@ from pathlib import Path
 
 import pytest
 
-from cookiecutter import exceptions, hooks, utils
+from mlpstamps import exceptions, hooks, utils
 
 
 def make_test_repo(name: str, multiple_hooks: bool = False) -> str:
@@ -189,20 +189,20 @@ class TestExternalHooks:
                 f.write("@echo off\n")
                 f.write("\n")
                 f.write("echo post generation hook\n")
-                f.write("echo. >{{cookiecutter.file}}\n")
+                f.write("echo. >{{mlpstamps.file}}\n")
         else:
             with Path(hook_path).open('w') as fh:
                 fh.write("#!/bin/bash\n")
                 fh.write("\n")
                 fh.write("echo 'post generation hook';\n")
                 fh.write("touch 'shell_post.txt'\n")
-                fh.write("touch '{{cookiecutter.file}}'\n")
+                fh.write("touch '{{mlpstamps.file}}'\n")
                 os.chmod(hook_path, os.stat(hook_path).st_mode | stat.S_IXUSR)
 
         hooks.run_script_with_context(
             os.path.join(self.hooks_path, self.post_hook),
             'tests',
-            {'cookiecutter': {'file': 'context_post.txt'}},
+            {'mlpstamps': {'file': 'context_post.txt'}},
         )
         assert os.path.isfile('tests/context_post.txt')
         assert 'tests' not in os.getcwd()

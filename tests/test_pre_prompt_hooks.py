@@ -5,8 +5,8 @@ from pathlib import Path
 
 import pytest
 
-from cookiecutter import hooks, utils
-from cookiecutter.exceptions import FailedHookException
+from mlpstamps import hooks, utils
+from mlpstamps.exceptions import FailedHookException
 
 WINDOWS = sys.platform.startswith('win')
 
@@ -23,10 +23,10 @@ def remove_tmp_repo_dir():
 
 
 def test_run_pre_prompt_python_hook(remove_tmp_repo_dir) -> None:
-    """Verify pre_prompt.py runs and creates a copy of cookiecutter.json."""
+    """Verify pre_prompt.py runs and creates a copy of mlpstamps.json."""
     new_repo_dir = hooks.run_pre_prompt_hook(repo_dir='tests/test-pyhooks/')
     assert new_repo_dir.exists()  # type: ignore[union-attr]
-    bkp_config = new_repo_dir / "_cookiecutter.json"  # type: ignore[operator]
+    bkp_config = new_repo_dir / "_mlpstamps.json"  # type: ignore[operator]
     assert bkp_config.exists()
     remove_tmp_repo_dir(new_repo_dir)
 
@@ -43,9 +43,9 @@ def test_run_pre_prompt_python_hook_fail(monkeypatch) -> None:
 
 @pytest.mark.skipif(WINDOWS, reason='shell script will not run in Windows')
 def test_run_pre_prompt_shell_hook(remove_tmp_repo_dir) -> None:
-    """Verify pre_prompt.sh runs and creates a copy of cookiecutter.json."""
+    """Verify pre_prompt.sh runs and creates a copy of mlpstamps.json."""
     new_repo_dir = hooks.run_pre_prompt_hook(repo_dir='tests/test-pyshellhooks/')
     assert new_repo_dir.exists()  # type: ignore[union-attr]
-    bkp_config = new_repo_dir / "_cookiecutter.json"  # type: ignore[operator]
+    bkp_config = new_repo_dir / "_mlpstamps.json"  # type: ignore[operator]
     assert bkp_config.exists()
     remove_tmp_repo_dir(new_repo_dir)

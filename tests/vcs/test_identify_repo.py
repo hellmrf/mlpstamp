@@ -2,16 +2,16 @@
 
 import pytest
 
-from cookiecutter import exceptions, vcs
+from mlpstamps import exceptions, vcs
 
 
 @pytest.mark.parametrize(
     'repo_url, exp_repo_type, exp_repo_url',
     [
         (
-            'git+https://github.com/pytest-dev/cookiecutter-pytest-plugin.git',
+            'git+https://github.com/pytest-dev/mlpstamps-pytest-plugin.git',
             'git',
-            'https://github.com/pytest-dev/cookiecutter-pytest-plugin.git',
+            'https://github.com/pytest-dev/mlpstamps-pytest-plugin.git',
         ),
         (
             'hg+https://bitbucket.org/foo/bar.hg',
@@ -19,30 +19,30 @@ from cookiecutter import exceptions, vcs
             'https://bitbucket.org/foo/bar.hg',
         ),
         (
-            'https://github.com/pytest-dev/cookiecutter-pytest-plugin.git',
+            'https://github.com/pytest-dev/mlpstamps-pytest-plugin.git',
             'git',
-            'https://github.com/pytest-dev/cookiecutter-pytest-plugin.git',
+            'https://github.com/pytest-dev/mlpstamps-pytest-plugin.git',
         ),
         ('https://bitbucket.org/foo/bar.hg', 'hg', 'https://bitbucket.org/foo/bar.hg'),
         (
-            'https://github.com/audreyfeldroy/cookiecutter-pypackage.git',
+            'https://github.com/audreyfeldroy/mlpstamps-pypackage.git',
             'git',
-            'https://github.com/audreyfeldroy/cookiecutter-pypackage.git',
+            'https://github.com/audreyfeldroy/mlpstamps-pypackage.git',
         ),
         (
-            'https://github.com/audreyfeldroy/cookiecutter-pypackage',
+            'https://github.com/audreyfeldroy/mlpstamps-pypackage',
             'git',
-            'https://github.com/audreyfeldroy/cookiecutter-pypackage',
+            'https://github.com/audreyfeldroy/mlpstamps-pypackage',
         ),
         (
-            'git@gitorious.org:cookiecutter-gitorious/cookiecutter-gitorious.git',
+            'git@gitorious.org:mlpstamps-gitorious/mlpstamps-gitorious.git',
             'git',
-            'git@gitorious.org:cookiecutter-gitorious/cookiecutter-gitorious.git',
+            'git@gitorious.org:mlpstamps-gitorious/mlpstamps-gitorious.git',
         ),
         (
-            'https://audreyr@bitbucket.org/audreyr/cookiecutter-bitbucket',
+            'https://audreyr@bitbucket.org/audreyr/mlpstamps-bitbucket',
             'hg',
-            'https://audreyr@bitbucket.org/audreyr/cookiecutter-bitbucket',
+            'https://audreyr@bitbucket.org/audreyr/mlpstamps-bitbucket',
         ),
     ],
 )

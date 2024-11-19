@@ -8,7 +8,7 @@ from jinja2 import Environment, exceptions
 @pytest.fixture
 def environment():
     """Fixture. Add tested extension to environment."""
-    return Environment(extensions=['cookiecutter.extensions.TimeExtension'])  # noqa: S701
+    return Environment(extensions=['mlpstamps.extensions.TimeExtension'])  # noqa: S701
 
 
 @pytest.fixture(autouse=True)

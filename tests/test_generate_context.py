@@ -9,9 +9,9 @@ from typing import Any, Iterator
 
 import pytest
 
-from cookiecutter import generate
-from cookiecutter.exceptions import ContextDecodingException
-from cookiecutter.prompt import YesNoPrompt
+from mlpstamps import generate
+from mlpstamps.exceptions import ContextDecodingException
+from mlpstamps.prompt import YesNoPrompt
 
 
 def context_data() -> Iterator[tuple[dict[str, Any], dict[str, Any]]]:
@@ -91,7 +91,7 @@ def test_default_context_replacement_in_generate_context() -> None:
                 ('full_name', 'Raphael Pierzina'),
                 ('github_username', 'hackebrot'),
                 ('project_name', 'Kivy Project'),
-                ('repo_name', '{{cookiecutter.project_name|lower}}'),
+                ('repo_name', '{{mlpstamps.project_name|lower}}'),
                 ('orientation', ['landscape', 'all', 'portrait']),
             ]
         )
@@ -138,7 +138,7 @@ def template_context():
             ('full_name', 'Raphael Pierzina'),
             ('github_username', 'hackebrot'),
             ('project_name', 'Kivy Project'),
-            ('repo_name', '{{cookiecutter.project_name|lower}}'),
+            ('repo_name', '{{mlpstamps.project_name|lower}}'),
             ('orientation', ['all', 'landscape', 'portrait']),
             ('deployment_regions', ['eu', 'us', 'ap']),
             (
@@ -178,7 +178,7 @@ def test_apply_overwrites_does_not_modify_choices_for_invalid_overwrite() -> Non
                 ('full_name', 'Raphael Pierzina'),
                 ('github_username', 'hackebrot'),
                 ('project_name', 'Kivy Project'),
-                ('repo_name', '{{cookiecutter.project_name|lower}}'),
+                ('repo_name', '{{mlpstamps.project_name|lower}}'),
                 ('orientation', ['all', 'landscape', 'portrait']),
             ]
         )
@@ -268,7 +268,7 @@ def test_apply_overwrites_in_nested_dict() -> None:
                         [
                             ('name', 'My Kivy Project'),
                             ('description', 'My Kivy Project'),
-                            ('repo_name', '{{cookiecutter.project_name|lower}}'),
+                            ('repo_name', '{{mlpstamps.project_name|lower}}'),
                             ('orientation', ["all", "landscape", "portrait"]),
                         ]
                     ),

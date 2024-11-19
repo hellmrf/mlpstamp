@@ -1,0 +1,1 @@
+{{ mlpstamps | jsonify(4) }}
